@@ -18,4 +18,9 @@ class Pedido extends Model
 ];
 
 public $timestamps = false;
+
+public function productos()
+{
+    return $this->hasMany('App\Producto');
+}
 }
