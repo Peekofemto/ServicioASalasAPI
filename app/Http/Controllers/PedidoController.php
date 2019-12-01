@@ -52,14 +52,14 @@ class PedidoController extends Controller
         $pedido->asiento = $request->asiento;
         $pedido->hora = $request->hora;
         $pedido->estado = $request->estado;
-        // return new PedidoResource($pedidoCompleto);
+        return new PedidoResource($pedido);
         
         
         $data = $request->only('productos');
         $pedido['productos'] = json_encode($data);
         // Pedido::insert($pedido);
         $pedido->save();
-        return ('Pedido registrado exitosamente!');
+        // return ('Pedido registrado exitosamente!');
 
 
     }
