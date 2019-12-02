@@ -21,9 +21,30 @@ class PedidoController extends Controller
     /**
      * @return PedidoResourceCollection
      */
-    public function index(): PedidoResourceCollection
+    public function index(Request $request)
     {
-        return new PedidoResourceCollection(Pedido::paginate(10));
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+
+        if ($buscar=='') {
+            //Creando un array de tipo Alumno(model)
+            $pedidos = Pedido::orderBy('id', 'desc')->paginate(20);
+        }
+        else {
+            $pedidos = Pedido::where($criterio, 'like', '%' . $buscar . '%' )->orderBy('id', 'desc')->paginate(20);
+        }
+        // return new PedidoResourceCollection(Pedido::paginate(10));
+        return[
+            'pagination' => [
+                'total'        => $pedidos->total(),
+                'current_page' => $pedidos->currentPage(),
+                'per_page'     => $pedidos->perPage(),
+                'last_page'    => $pedidos->lastPage(),
+                'from'         => $pedidos->firstItem(),
+                'to'           => $pedidos->lastItem(),
+            ],
+            'pedidos' => $pedidos
+        ];
     }
 
     /**
