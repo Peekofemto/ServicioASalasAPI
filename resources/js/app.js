@@ -31,6 +31,6 @@ Vue.component('pedido', require('./components/Pedido.vue').default);
 const app = new Vue({
     el: '#app',
     data : {
-        menu : 0
+        menu : 1
     }
 });

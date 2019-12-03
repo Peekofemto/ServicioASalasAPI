@@ -2145,55 +2145,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2261,7 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
     listarPedido: function listarPedido(page, buscar, criterio) {
       //'alumno' es la route que nos regresa los alumnos
       var me = this;
-      var url = '/api/pedido';
+      var url = 'https://serviciosalas.herokuapp.com/api/pedido?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         // handle success
         var respuesta = response.data;
@@ -2279,17 +2230,10 @@ __webpack_require__.r(__webpack_exports__);
       me.pagination.current_page = page; //Envia la peticion para visualizar la data de esa pagina
 
       me.listarPedido(page, buscar, criterio);
-    },
-    cerrarModal: function cerrarModal() {
-      this.modal = 0;
-      this.tituloModal = '';
-      this.numero_control = '';
-      this.nombre = '';
-      this.email = '';
-    },
-    mounted: function mounted() {
-      this.listarPedido(1, this.buscar, this.criterio);
     }
+  },
+  mounted: function mounted() {
+    this.listarPedido(1, this.buscar, this.criterio);
   }
 });
 
@@ -38387,6 +38331,10 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
+                      domProps: { textContent: _vm._s(pedido.hora) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
                       domProps: { textContent: _vm._s(pedido.nombre_cliente) }
                     }),
                     _vm._v(" "),
@@ -38400,10 +38348,6 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(pedido.asiento) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.hora) }
                     }),
                     _vm._v(" "),
                     _c("td", {
@@ -38500,107 +38444,7 @@ var render = function() {
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        class: { mostrar: _vm.modal },
-        staticStyle: { display: "none" },
-        attrs: {
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-primary modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h4", {
-                  staticClass: "modal-title",
-                  domProps: { textContent: _vm._s(_vm.tituloModal) }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: { type: "button", "aria-label": "Close" },
-                    on: {
-                      click: function($event) {
-                        return _vm.cerrarModal()
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.cerrarModal()
-                      }
-                    }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _vm.tipoAccion == 1
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.registrarAlumno()
-                          }
-                        }
-                      },
-                      [_vm._v("Guardar")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.tipoAccion == 2
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.actualizarAlumno()
-                          }
-                        }
-                      },
-                      [_vm._v("Actualizar")]
-                    )
-                  : _vm._e()
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -38629,9 +38473,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Productos")]),
+        _c("th", [_vm._v("Info Productos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hora")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombre Cliente")]),
         _vm._v(" "),
@@ -38640,8 +38486,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Sala")]),
         _vm._v(" "),
         _c("th", [_vm._v("Asiento")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Hora")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")])
       ])
@@ -50826,7 +50670,7 @@ Vue.component('pedido', __webpack_require__(/*! ./components/Pedido.vue */ "./re
 var app = new Vue({
   el: '#app',
   data: {
-    menu: 0
+    menu: 1
   }
 });
 
