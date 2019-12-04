@@ -2244,7 +2244,7 @@ __webpack_require__.r(__webpack_exports__);
 
       me.listarPedido(page, buscar, criterio);
     },
-    desactivarArticulo: function desactivarArticulo(id) {
+    actualizarProceso: function actualizarProceso(id) {
       var _this = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -2255,7 +2255,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Estás seguro que quieres desactivar este articulo?',
+        title: 'Estás seguro que quieres actualizar el estado?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -2268,7 +2268,7 @@ __webpack_require__.r(__webpack_exports__);
             'id': id
           }).then(function (response) {
             me.listarPedido(1, '', 'nombre_cliente');
-            swalWithBootstrapButtons.fire('En Proceso!', 'El estado ha sido actualizado con éxito.', 'success');
+            swalWithBootstrapButtons.fire('En Proceso', 'El estado ha sido actualizado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2276,7 +2276,7 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
-    activarArticulo: function activarArticulo(id) {
+    actualizarRecibido: function actualizarRecibido(id) {
       var _this2 = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -2287,7 +2287,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Estás seguro que quieres activar este registro?',
+        title: 'Estás seguro que quieres cambiar el estado?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -2300,7 +2300,7 @@ __webpack_require__.r(__webpack_exports__);
             'id': id
           }).then(function (response) {
             me.listarPedido(1, '', 'nombre_cliente');
-            swalWithBootstrapButtons.fire('Activado!', 'El registro ha sido activado con éxito.', 'success');
+            swalWithBootstrapButtons.fire('Recibido', 'El estado ha sido actualizado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -38411,7 +38411,7 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.desactivarArticulo(pedido.id)
+                                      return _vm.actualizarProceso(pedido.id)
                                     }
                                   }
                                 },
@@ -38426,7 +38426,7 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activarArticulo(pedido.id)
+                                      return _vm.actualizarRecibido(pedido.id)
                                     }
                                   }
                                 },

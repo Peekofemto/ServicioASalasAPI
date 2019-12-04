@@ -105,7 +105,7 @@ class PedidoController extends Controller
         //Si no es un request de ajax no hacemos nada por seguridad
         // if(!$request->ajax()) return redirect('/');
         $pedido = Pedido::findOrFail($request->id);
-        $pedido->estado = 'Em proceso';
+        $pedido->estado = 'En proceso';
         $pedido->save();
     }
 

@@ -41,12 +41,12 @@
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
                                 <td>
                                     <template v-if="pedido.estado == 'Recibido'">
-                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarArticulo(pedido.id)">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
                                             <i class="icon-trash"></i>
                                         </button>
                                     </template>
                                     <template v-else>
-                                        <button type="button" class="btn btn-info btn-sm" @click="activarArticulo(pedido.id)">
+                                        <button type="button" class="btn btn-info btn-sm" @click="actualizarRecibido(pedido.id)">
                                             <i class="icon-check"></i>
                                         </button>
                                     </template>
@@ -190,7 +190,7 @@
                 me.listarPedido(page, buscar, criterio);
             },
             
-            desactivarArticulo(id){
+            actualizarProceso(id){
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -200,7 +200,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                        title: 'Estás seguro que quieres desactivar este articulo?',
+                        title: 'Estás seguro que quieres actualizar el estado?',
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonText: 'Aceptar',
@@ -216,7 +216,7 @@
                         }).then(function (response) {
                             me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
-                                'En Proceso!',
+                                'En Proceso',
                                 'El estado ha sido actualizado con éxito.',
                                 'success'
                         )
@@ -236,7 +236,7 @@
 
 
 
-            activarArticulo(id){
+            actualizarRecibido(id){
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -246,7 +246,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                        title: 'Estás seguro que quieres activar este registro?',
+                        title: 'Estás seguro que quieres cambiar el estado?',
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonText: 'Aceptar',
@@ -262,8 +262,8 @@
                         }).then(function (response) {
                             me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
-                                'Activado!',
-                                'El registro ha sido activado con éxito.',
+                                'Recibido',
+                                'El estado ha sido actualizado con éxito.',
                                 'success'
                         )
                         }).catch(function (error) {
