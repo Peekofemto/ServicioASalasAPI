@@ -38415,7 +38415,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_c("i", { staticClass: "icon-trash" })]
+                                [_c("i", { staticClass: "icon-share-alt" })]
                               )
                             ]
                           : [

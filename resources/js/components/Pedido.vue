@@ -42,7 +42,7 @@
                                 <td>
                                     <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
-                                            <i class="icon-trash"></i>
+                                            <i class="icon-share-alt"></i>
                                         </button>
                                     </template>
                                     <template v-else>
