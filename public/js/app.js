@@ -2170,11 +2170,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38417,7 +38412,7 @@ var render = function() {
                 _vm._l(_vm.arrayPedido, function(pedido) {
                   return _c("tr", { key: pedido.id }, [
                     _c(
-                      "button",
+                      "td",
                       [
                         pedido.estado == "Recibido"
                           ? [
@@ -38433,22 +38428,6 @@ var render = function() {
                                   }
                                 },
                                 [_c("i", { staticClass: "icon-share-alt" })]
-                              )
-                            ]
-                          : pedido == "En Proceso"
-                          ? [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.actualizarRecibido(pedido.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "icon-check" })]
                               )
                             ]
                           : void 0
