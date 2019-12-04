@@ -46,9 +46,9 @@
                                         </button>
                                     </template>
                                     <template v-else>
-                                        <!-- <button type="button" class="btn btn-info btn-sm" @click="actualizarRecibido(pedido.id)">
+                                        <button type="button" class="btn btn-info btn-sm" disabled @click="actualizarRecibido(pedido.id)">
                                             <i class="icon-check"></i>
-                                        </button> -->
+                                        </button>
                                     </template>
                                 </td>
                                 <td v-text="pedido.productos"></td>

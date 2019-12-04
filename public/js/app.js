@@ -38430,7 +38430,21 @@ var render = function() {
                                 [_c("i", { staticClass: "icon-share-alt" })]
                               )
                             ]
-                          : void 0
+                          : [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info btn-sm",
+                                  attrs: { type: "button", disabled: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.actualizarRecibido(pedido.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "icon-check" })]
+                              )
+                            ]
                       ],
                       2
                     ),
