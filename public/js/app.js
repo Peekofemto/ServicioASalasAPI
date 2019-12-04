@@ -38417,7 +38417,7 @@ var render = function() {
                 _vm._l(_vm.arrayPedido, function(pedido) {
                   return _c("tr", { key: pedido.id }, [
                     _c(
-                      "td",
+                      "button",
                       [
                         pedido.estado == "Recibido"
                           ? [

@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
-                                <td>
+                                <button>
                                     <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
                                             <i class="icon-share-alt"></i>
@@ -55,7 +55,7 @@
                                             <i class="icon-check"></i>
                                         </button> -->
                                     </template>
-                                </td>
+                                </button>
                                 <td v-text="pedido.productos"></td>
                                 <td v-text="pedido.fecha"></td>
                                 <td v-text="pedido.hora"></td>
