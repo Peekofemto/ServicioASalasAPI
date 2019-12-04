@@ -2158,6 +2158,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38468,14 +38480,47 @@ var render = function() {
                     _c("td", [
                       pedido.estado == "Recibido"
                         ? _c("div", [
-                            _c("span", { staticClass: "badge badge-success" }, [
-                              _vm._v("Recibido")
-                            ])
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-info" },
+                              [_vm._v("Recibido")]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      pedido.estado == "Cancelado"
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-danger" },
+                              [_vm._v("Cancelado")]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      pedido.estado == "Entregado"
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-success" },
+                              [_vm._v("Entregado")]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      pedido.estado == "En proceso"
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-primary" },
+                              [_vm._v("En Proceso")]
+                            )
                           ])
                         : _c("div", [
-                            _c("span", { staticClass: "badge badge-primary" }, [
-                              _vm._v("En proceso")
-                            ])
+                            _c("span", {
+                              staticClass: "badge badge-pill badge-dark",
+                              domProps: { textContent: _vm._s(pedido.estado) }
+                            })
                           ])
                     ])
                   ])
