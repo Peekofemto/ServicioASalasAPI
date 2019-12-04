@@ -2170,6 +2170,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38411,6 +38412,34 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.arrayPedido, function(pedido) {
                   return _c("tr", { key: pedido.id }, [
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.productos) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.fecha) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.hora) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.nombre_cliente) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.observaciones) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.sala) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.asiento) }
+                    }),
+                    _vm._v(" "),
                     _c(
                       "td",
                       [
@@ -38448,34 +38477,6 @@ var render = function() {
                       ],
                       2
                     ),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.productos) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.fecha) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.hora) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.nombre_cliente) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.observaciones) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.sala) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.asiento) }
-                    }),
                     _vm._v(" "),
                     _c("td", [
                       pedido.estado === "Recibido"
@@ -38637,8 +38638,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Cambiar Estado")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Info Productos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
@@ -38652,6 +38651,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Sala")]),
         _vm._v(" "),
         _c("th", [_vm._v("Asiento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cambiar Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")])
       ])

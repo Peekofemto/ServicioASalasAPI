@@ -26,7 +26,6 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Cambiar Estado</th>
                                 <th>Info Productos</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
@@ -34,11 +33,21 @@
                                 <th>Observaciones</th>
                                 <th>Sala</th>
                                 <th>Asiento</th>
+                                <th>Cambiar Estado</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
+              
+                                <td v-text="pedido.productos"></td>
+                                <td v-text="pedido.fecha"></td>
+                                <td v-text="pedido.hora"></td>
+                                <td v-text="pedido.nombre_cliente"></td>
+                                <td v-text="pedido.observaciones"></td>
+                                <td v-text="pedido.sala"></td>
+                                <td v-text="pedido.asiento"></td>
+                                <!-- <td v-text="pedido.estado"></td> -->
                                 <td>
                                     <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
@@ -51,14 +60,6 @@
                                         </button>
                                     </template>
                                 </td>
-                                <td v-text="pedido.productos"></td>
-                                <td v-text="pedido.fecha"></td>
-                                <td v-text="pedido.hora"></td>
-                                <td v-text="pedido.nombre_cliente"></td>
-                                <td v-text="pedido.observaciones"></td>
-                                <td v-text="pedido.sala"></td>
-                                <td v-text="pedido.asiento"></td>
-                                <!-- <td v-text="pedido.estado"></td> -->
                                 <td>
                                     <div v-if="pedido.estado === 'Recibido'" >
                                     <span class="badge badge-pill badge-info">Recibido</span>
