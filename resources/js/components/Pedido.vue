@@ -211,7 +211,7 @@
 
                         let me = this;
 
-                        axios.put('https://serviciosalas.herokuapp.com/api/pedido',{
+                        axios.put('/pedido/proceso',{
                             'id': id
                         }).then(function (response) {
                             me.listarPedido(1, '', 'nombre_cliente');
@@ -257,10 +257,10 @@
 
                         let me = this;
 
-                        axios.put('/articulo/activar',{
+                        axios.put('/pedido/recibido',{
                             'id': id
                         }).then(function (response) {
-                            me.listarArticulo(1, '', 'nombre');
+                            me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
                                 'Activado!',
                                 'El registro ha sido activado con éxito.',
