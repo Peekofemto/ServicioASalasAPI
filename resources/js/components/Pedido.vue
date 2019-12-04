@@ -40,7 +40,7 @@
                         <tbody>
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
                                 <td>
-                                    <template v-if="pedido.estado">
+                                    <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarArticulo(pedido.id)">
                                             <i class="icon-trash"></i>
                                         </button>
@@ -211,13 +211,13 @@
 
                         let me = this;
 
-                        axios.put('/articulo/desactivar',{
+                        axios.put('https://serviciosalas.herokuapp.com/api/pedido',{
                             'id': id
                         }).then(function (response) {
-                            me.listarArticulo(1, '', 'nombre');
+                            me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
-                                'Desactivado!',
-                                'El registro ha sido desactivado con éxito.',
+                                'En Proceso!',
+                                'El estado ha sido actualizado con éxito.',
                                 'success'
                         )
                         }).catch(function (error) {

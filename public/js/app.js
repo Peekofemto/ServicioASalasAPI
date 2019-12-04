@@ -2264,11 +2264,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/articulo/desactivar', {
+          axios.put('https://serviciosalas.herokuapp.com/api/pedido', {
             'id': id
           }).then(function (response) {
-            me.listarArticulo(1, '', 'nombre');
-            swalWithBootstrapButtons.fire('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
+            me.listarPedido(1, '', 'nombre_cliente');
+            swalWithBootstrapButtons.fire('En Proceso!', 'El estado ha sido actualizado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -38402,7 +38402,7 @@ var render = function() {
                     _c(
                       "td",
                       [
-                        pedido.estado
+                        pedido.estado == "Recibido"
                           ? [
                               _c(
                                 "button",

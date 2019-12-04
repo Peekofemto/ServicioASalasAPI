@@ -85,12 +85,10 @@ class PedidoController extends Controller
 
     }
     
-    public function update(Request $request)
+    public function update(Pedido $pedido, Request $request)
     {   
-        // $pedido->update($request->all());
-        $pedido = Pedido::findOrFail($request->id);
-        $pedido->estado = 'En proceso';
-        $pedido->save();
+        $pedido->update($request->all());
+
 
         // return new PedidoResource($pedido);
     }
@@ -102,4 +100,21 @@ class PedidoController extends Controller
         return response()->json();
     }
 
+    public function actualizar_Proceso(Request $request)
+    {
+        //Si no es un request de ajax no hacemos nada por seguridad
+        // if(!$request->ajax()) return redirect('/');
+        $pedido = Pedido::findOrFail($request->id);
+        $pedido->estado = 'Em proceso';
+        $pedido->save();
+    }
+
+    public function actualizar_Recibido(Request $request)
+    {
+        //Si no es un request de ajax no hacemos nada por seguridad
+        // if(!$request->ajax()) return redirect('/');
+        $pedido = Pedido::findOrFail($request->id);
+        $pedido->condicion = 'Recibido';
+        $pedido->save();
+    }
 }

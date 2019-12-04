@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('contenido/contenido');
 });
+
+Route::put('/pedido/proceso', 'PedidoController@actualizar_Proceso');
+Route::put('/pedido/recibido', 'PedidoController@actualizar_Recibido');
