@@ -38478,7 +38478,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", [
-                      pedido.estado == "Recibido"
+                      pedido.estado === "Recibido"
                         ? _c("div", [
                             _c(
                               "span",
@@ -38486,9 +38486,7 @@ var render = function() {
                               [_vm._v("Recibido")]
                             )
                           ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      pedido.estado == "Cancelado"
+                        : pedido.estado === "Cancelado"
                         ? _c("div", [
                             _c(
                               "span",
@@ -38496,9 +38494,7 @@ var render = function() {
                               [_vm._v("Cancelado")]
                             )
                           ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      pedido.estado == "Entregado"
+                        : pedido.estado === "Entregado"
                         ? _c("div", [
                             _c(
                               "span",
@@ -38506,9 +38502,7 @@ var render = function() {
                               [_vm._v("Entregado")]
                             )
                           ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      pedido.estado == "En proceso"
+                        : pedido.estado === "En proceso"
                         ? _c("div", [
                             _c(
                               "span",

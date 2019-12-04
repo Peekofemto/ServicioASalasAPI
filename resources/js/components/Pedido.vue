@@ -60,19 +60,19 @@
                                 <td v-text="pedido.asiento"></td>
                                 <!-- <td v-text="pedido.estado"></td> -->
                                 <td>
-                                    <div v-if="pedido.estado == 'Recibido'" >
+                                    <div v-if="pedido.estado === 'Recibido'" >
                                     <span class="badge badge-pill badge-info">Recibido</span>
                                     </div>
 
-                                    <div v-if="pedido.estado == 'Cancelado'" >
+                                    <div v-else-if="pedido.estado === 'Cancelado'" >
                                     <span class="badge badge-pill badge-danger">Cancelado</span>
                                     </div>
 
-                                    <div v-if="pedido.estado == 'Entregado'" >
+                                    <div v-else-if="pedido.estado === 'Entregado'" >
                                     <span class="badge badge-pill badge-success">Entregado</span>
                                     </div>
 
-                                    <div v-if="pedido.estado == 'En proceso'" >
+                                    <div v-else-if="pedido.estado === 'En proceso'" >
                                     <span class="badge badge-pill badge-primary">En Proceso</span>
                                     </div>
 
