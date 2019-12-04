@@ -45,10 +45,15 @@
                                             <i class="icon-share-alt"></i>
                                         </button>
                                     </template>
-                                    <template v-if="pedido.estado === 'En Proceso'">
+                                    <template v-else-if="pedido.estado === 'En Proceso'">
                                         <button type="button" class="btn btn-info btn-sm" @click="actualizarRecibido(pedido.id)">
                                             <i class="icon-check"></i>
                                         </button>
+                                    </template>
+                                    <template v-else>
+                                        <!-- <button type="button" class="btn btn-info btn-sm">
+                                            <i class="icon-check"></i>
+                                        </!--> -->
                                     </template>
                                 </td>
                                 <td v-text="pedido.productos"></td>

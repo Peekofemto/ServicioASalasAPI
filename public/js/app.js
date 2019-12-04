@@ -2170,6 +2170,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38430,9 +38435,7 @@ var render = function() {
                                 [_c("i", { staticClass: "icon-share-alt" })]
                               )
                             ]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        pedido.estado === "En Proceso"
+                          : pedido.estado === "En Proceso"
                           ? [
                               _c(
                                 "button",
@@ -38448,7 +38451,7 @@ var render = function() {
                                 [_c("i", { staticClass: "icon-check" })]
                               )
                             ]
-                          : _vm._e()
+                          : [_vm._v(" -->\n                                  ")]
                       ],
                       2
                     ),
