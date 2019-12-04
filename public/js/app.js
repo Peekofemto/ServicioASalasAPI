@@ -38414,7 +38414,7 @@ var render = function() {
                     _c(
                       "td",
                       [
-                        pedido.estado == "Recibido"
+                        pedido.estado === "Recibido"
                           ? [
                               _c(
                                 "button",
@@ -38430,7 +38430,10 @@ var render = function() {
                                 [_c("i", { staticClass: "icon-share-alt" })]
                               )
                             ]
-                          : [
+                          : _vm._e(),
+                        _vm._v(" "),
+                        pedido.estado === "En Proceso"
+                          ? [
                               _c(
                                 "button",
                                 {
@@ -38445,6 +38448,7 @@ var render = function() {
                                 [_c("i", { staticClass: "icon-check" })]
                               )
                             ]
+                          : _vm._e()
                       ],
                       2
                     ),

@@ -40,12 +40,12 @@
                         <tbody>
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
                                 <td>
-                                    <template v-if="pedido.estado == 'Recibido'">
+                                    <template v-if="pedido.estado === 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
                                             <i class="icon-share-alt"></i>
                                         </button>
                                     </template>
-                                    <template v-else>
+                                    <template v-if="pedido.estado === 'En Proceso'">
                                         <button type="button" class="btn btn-info btn-sm" @click="actualizarRecibido(pedido.id)">
                                             <i class="icon-check"></i>
                                         </button>
