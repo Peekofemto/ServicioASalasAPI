@@ -26,6 +26,7 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
+                                <th>Cambiar Estado</th>
                                 <th>Info Productos</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
@@ -38,6 +39,18 @@
                         </thead>
                         <tbody>
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
+                                <td>
+                                    <template v-if="pedido.estado">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="desactivarArticulo(pedido.id)">
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </template>
+                                    <template v-else>
+                                        <button type="button" class="btn btn-info btn-sm" @click="activarArticulo(pedido.id)">
+                                            <i class="icon-check"></i>
+                                        </button>
+                                    </template>
+                                </td>
                                 <td v-text="pedido.productos"></td>
                                 <td v-text="pedido.fecha"></td>
                                 <td v-text="pedido.hora"></td>
@@ -45,16 +58,16 @@
                                 <td v-text="pedido.observaciones"></td>
                                 <td v-text="pedido.sala"></td>
                                 <td v-text="pedido.asiento"></td>
-                                <td v-text="pedido.estado"></td>
-                                <!-- <td>
-                                    <div v-if="alumno.condicion" >
-                                    <span class="badge badge-success">Activo</span>
+                                <!-- <td v-text="pedido.estado"></td> -->
+                                <td>
+                                    <div v-if="pedido.estado == 'Recibido'" >
+                                    <span class="badge badge-success">Recibido</span>
                                     </div>
 
                                     <div v-else >
-                                    <span class="badge badge-danger">Inactivo</span>
+                                    <span class="badge badge-primary">En proceso</span>
                                     </div>
-                                </td> -->
+                                </td>
                             </tr>
                             
                         </tbody>
@@ -175,6 +188,96 @@
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar la data de esa pagina
                 me.listarPedido(page, buscar, criterio);
+            },
+            
+            desactivarArticulo(id){
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                        buttonsStyling: false,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Estás seguro que quieres desactivar este articulo?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Aceptar',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+
+                        let me = this;
+
+                        axios.put('/articulo/desactivar',{
+                            'id': id
+                        }).then(function (response) {
+                            me.listarArticulo(1, '', 'nombre');
+                            swalWithBootstrapButtons.fire(
+                                'Desactivado!',
+                                'El registro ha sido desactivado con éxito.',
+                                'success'
+                        )
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+
+                    }
+                    })
+            },
+
+
+
+            activarArticulo(id){
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                        buttonsStyling: false,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Estás seguro que quieres activar este registro?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Aceptar',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+
+                        let me = this;
+
+                        axios.put('/articulo/activar',{
+                            'id': id
+                        }).then(function (response) {
+                            me.listarArticulo(1, '', 'nombre');
+                            swalWithBootstrapButtons.fire(
+                                'Activado!',
+                                'El registro ha sido activado con éxito.',
+                                'success'
+                        )
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+
+                    }
+                 })
             },
     },
     mounted() {

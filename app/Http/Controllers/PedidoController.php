@@ -28,7 +28,7 @@ class PedidoController extends Controller
 
         if ($buscar=='') {
             //Creando un array de tipo Alumno(model)
-            $pedidos = Pedido::orderBy('id', 'desc')->paginate(20);
+            $pedidos = Pedido::orderBy('hora', 'desc')->paginate(20);
         }
         else {
             $pedidos = Pedido::where($criterio, 'like', '%' . $buscar . '%' )->orderBy('id', 'desc')->paginate(20);
@@ -85,12 +85,14 @@ class PedidoController extends Controller
 
     }
     
-    public function update(Pedido $pedido, Request $request): PedidoResource
+    public function update(Request $request)
     {   
-        $pedido->update($request->all());
+        // $pedido->update($request->all());
+        $pedido = Pedido::findOrFail($request->id);
+        $pedido->estado = 'En proceso';
+        $pedido->save();
 
-
-        return new PedidoResource($pedido);
+        // return new PedidoResource($pedido);
     }
 
     public function destroy(Pedido $pedido)
@@ -99,4 +101,5 @@ class PedidoController extends Controller
 
         return response()->json();
     }
+
 }

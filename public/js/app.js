@@ -2145,6 +2145,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2230,6 +2243,70 @@ __webpack_require__.r(__webpack_exports__);
       me.pagination.current_page = page; //Envia la peticion para visualizar la data de esa pagina
 
       me.listarPedido(page, buscar, criterio);
+    },
+    desactivarArticulo: function desactivarArticulo(id) {
+      var _this = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Estás seguro que quieres desactivar este articulo?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this;
+          axios.put('/articulo/desactivar', {
+            'id': id
+          }).then(function (response) {
+            me.listarArticulo(1, '', 'nombre');
+            swalWithBootstrapButtons.fire('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
+    },
+    activarArticulo: function activarArticulo(id) {
+      var _this2 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Estás seguro que quieres activar este registro?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this2;
+          axios.put('/articulo/activar', {
+            'id': id
+          }).then(function (response) {
+            me.listarArticulo(1, '', 'nombre');
+            swalWithBootstrapButtons.fire('Activado!', 'El registro ha sido activado con éxito.', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
     }
   },
   mounted: function mounted() {
@@ -38322,6 +38399,44 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.arrayPedido, function(pedido) {
                   return _c("tr", { key: pedido.id }, [
+                    _c(
+                      "td",
+                      [
+                        pedido.estado
+                          ? [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.desactivarArticulo(pedido.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "icon-trash" })]
+                              )
+                            ]
+                          : [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activarArticulo(pedido.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "icon-check" })]
+                              )
+                            ]
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(pedido.productos) }
                     }),
@@ -38350,9 +38465,19 @@ var render = function() {
                       domProps: { textContent: _vm._s(pedido.asiento) }
                     }),
                     _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(pedido.estado) }
-                    })
+                    _c("td", [
+                      pedido.estado == "Recibido"
+                        ? _c("div", [
+                            _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Recibido")
+                            ])
+                          ])
+                        : _c("div", [
+                            _c("span", { staticClass: "badge badge-primary" }, [
+                              _vm._v("En proceso")
+                            ])
+                          ])
+                    ])
                   ])
                 }),
                 0
@@ -38473,6 +38598,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("Cambiar Estado")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Info Productos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
