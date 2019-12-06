@@ -28,6 +28,10 @@ class CreatePedidosTable extends Migration
             $table->time('hora');
             $table->string('estado');
 
+            $table->string('codigo_cliente');
+            $table->integer('puntos')->unsigned();
+            $table->double('costo_final', 8, 2);
+
             // $table->unsignedBigInteger('pedido_id');
             // $table->string('nombre');
             // $table->integer('cantidad')->unsigned();
