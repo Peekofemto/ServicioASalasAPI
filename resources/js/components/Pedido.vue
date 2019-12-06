@@ -29,6 +29,9 @@
                                 <th>Info Productos</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
+                                <th>Costo Final</th>
+                                <th>Codigo Cliente</th>
+                                <th>Puntos</th>
                                 <th>Nombre Cliente</th>
                                 <th>Observaciones</th>
                                 <th>Sala</th>
@@ -43,6 +46,9 @@
                                 <td v-text="pedido.productos"></td>
                                 <td v-text="pedido.fecha"></td>
                                 <td v-text="pedido.hora"></td>
+                                <td v-text="pedido.costo_final"></td>
+                                <td v-text="pedido.codigo_cliente"></td>
+                                <td v-text="pedido.puntos"></td>
                                 <td v-text="pedido.nombre_cliente"></td>
                                 <td v-text="pedido.observaciones"></td>
                                 <td v-text="pedido.sala"></td>
@@ -121,6 +127,9 @@
                 asiento : '',
                 hora : '',
                 estado : '',
+                costo_final : 0,
+                codigo_cliente : '',
+                puntos : 0,
                 arrayPedido : [],
                 modal : 0,
                 tituloModal : '',

@@ -2171,6 +2171,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2183,6 +2189,9 @@ __webpack_require__.r(__webpack_exports__);
       asiento: '',
       hora: '',
       estado: '',
+      costo_final: 0,
+      codigo_cliente: '',
+      puntos: 0,
       arrayPedido: [],
       modal: 0,
       tituloModal: '',
@@ -38425,6 +38434,18 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
+                      domProps: { textContent: _vm._s(pedido.costo_final) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.codigo_cliente) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(pedido.puntos) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
                       domProps: { textContent: _vm._s(pedido.nombre_cliente) }
                     }),
                     _vm._v(" "),
@@ -38643,6 +38664,12 @@ var staticRenderFns = [
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
         _c("th", [_vm._v("Hora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Final")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Codigo Cliente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Puntos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombre Cliente")]),
         _vm._v(" "),
