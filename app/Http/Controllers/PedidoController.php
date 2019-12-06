@@ -73,6 +73,10 @@ class PedidoController extends Controller
         $pedido->asiento = $request->asiento;
         $pedido->hora = $request->hora;
         $pedido->estado = $request->estado;
+        $pedido->codigo_cliente = $request->codigo_cliente;
+        $pedido->puntos = $request->puntos;
+        $pedido->costo_final = $request->costo_final;
+        
         
         
         $data = $request->only('productos');

@@ -27,6 +27,9 @@ class PedidoResource extends JsonResource
             'asiento' => $this->asiento,
             'hora' => $this->hora,
             'estado' => $this->estado,
+            'codigo_cliente' => $this->codigo_cliente,
+            'puntos' => $this->puntos,
+            'costo_final' => $this->costo_final,
         ];
         // return parent::toArray($request);
     }
