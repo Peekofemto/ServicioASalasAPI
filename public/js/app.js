@@ -2285,10 +2285,23 @@ __webpack_require__.r(__webpack_exports__);
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
+          //actualizar estado de pedido de 'Recibido' a 'En Proceso'
           var me = _this;
           axios.put('/pedido/proceso', {
             'id': id
           }).then(function (response) {
+            //Mandando informacion de pedido a dulcería/
+            var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+            axios.post(url, {
+              'productos': this.productos,
+              'costo_final': this.costo_final,
+              'fecha': this.fecha,
+              'codigo_cliente': this.codigo_cliente,
+              'puntos': this.puntos,
+              'estado': this.estado
+            }).then(function (response) {})["catch"](function (error) {
+              console.log(error);
+            });
             me.listarPedido(1, '', 'nombre_cliente');
             swalWithBootstrapButtons.fire('En Proceso', 'El estado ha sido actualizado con éxito.', 'success');
           })["catch"](function (error) {
@@ -2298,38 +2311,7 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
-    actualizarRecibido: function actualizarRecibido(id) {
-      var _this2 = this;
-
-      var swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      });
-      swalWithBootstrapButtons.fire({
-        title: 'Estás seguro que quieres cambiar el estado?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-      }).then(function (result) {
-        if (result.value) {
-          var me = _this2;
-          axios.put('/pedido/recibido', {
-            'id': id
-          }).then(function (response) {
-            me.listarPedido(1, '', 'nombre_cliente');
-            swalWithBootstrapButtons.fire('Recibido', 'El estado ha sido actualizado con éxito.', 'success');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if ( // Read more about handling dismissals
-        result.dismiss === Swal.DismissReason.cancel) {}
-      });
-    }
+    mandarPedidoTienda: function mandarPedidoTienda() {}
   },
   mounted: function mounted() {
     this.listarPedido(1, this.buscar, this.criterio);
@@ -38480,21 +38462,7 @@ var render = function() {
                                 [_c("i", { staticClass: "icon-share-alt" })]
                               )
                             ]
-                          : [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: { type: "button", disabled: "" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.actualizarRecibido(pedido.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "icon-check" })]
-                              )
-                            ]
+                          : [_vm._m(3, true)]
                       ],
                       2
                     ),
@@ -38684,6 +38652,19 @@ var staticRenderFns = [
         _c("th", [_vm._v("Estado")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-info btn-sm",
+        attrs: { type: "button", disabled: "" }
+      },
+      [_c("i", { staticClass: "icon-check" })]
+    )
   }
 ]
 render._withStripped = true
@@ -50987,14 +50968,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/js/components/Pedido.vue ***!
   \********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pedido_vue_vue_type_template_id_5e24ca20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pedido.vue?vue&type=template&id=5e24ca20& */ "./resources/js/components/Pedido.vue?vue&type=template&id=5e24ca20&");
 /* harmony import */ var _Pedido_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pedido.vue?vue&type=script&lang=js& */ "./resources/js/components/Pedido.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Pedido_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Pedido_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -51024,7 +51006,7 @@ component.options.__file = "resources/js/components/Pedido.vue"
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Pedido.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

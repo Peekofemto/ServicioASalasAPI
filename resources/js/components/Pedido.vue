@@ -61,7 +61,7 @@
                                         </button>
                                     </template>
                                     <template v-else>
-                                        <button type="button" class="btn btn-info btn-sm" disabled @click="actualizarRecibido(pedido.id)">
+                                        <button type="button" class="btn btn-info btn-sm" disabled>
                                             <i class="icon-check"></i>
                                         </button>
                                     </template>
@@ -230,12 +230,26 @@
                         reverseButtons: true
                     }).then((result) => {
                     if (result.value) {
-
+                        //actualizar estado de pedido de 'Recibido' a 'En Proceso'
                         let me = this;
 
                         axios.put('/pedido/proceso',{
                             'id': id
                         }).then(function (response) {
+                            //Mandando informacion de pedido a dulcería/
+                            var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+                            axios.post(url,{
+                                'productos' : this.productos,
+                                'costo_final' : this.costo_final,
+                                'fecha' : this.fecha,
+                                'codigo_cliente' : this.codigo_cliente,
+                                'puntos' : this.puntos,
+                                'estado' : this.estado
+                            }).then(function(response) {
+                                
+                            }).catch(function(error){
+                                console.log(error);
+                            });
                             me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
                                 'En Proceso',
@@ -245,7 +259,7 @@
                         }).catch(function (error) {
                             console.log(error);
                         });
-
+ 
 
                     } else if (
                         // Read more about handling dismissals
@@ -256,51 +270,10 @@
                     })
             },
 
+            mandarPedidoTienda(){
 
+            }
 
-            actualizarRecibido(id){
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                        buttonsStyling: false,
-                    })
-
-                    swalWithBootstrapButtons.fire({
-                        title: 'Estás seguro que quieres cambiar el estado?',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Aceptar',
-                        cancelButtonText: 'Cancelar',
-                        reverseButtons: true
-                    }).then((result) => {
-                    if (result.value) {
-
-                        let me = this;
-
-                        axios.put('/pedido/recibido',{
-                            'id': id
-                        }).then(function (response) {
-                            me.listarPedido(1, '', 'nombre_cliente');
-                            swalWithBootstrapButtons.fire(
-                                'Recibido',
-                                'El estado ha sido actualizado con éxito.',
-                                'success'
-                        )
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
-
-
-                    } else if (
-                        // Read more about handling dismissals
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-
-                    }
-                 })
-            },
     },
     mounted() {
         this.listarPedido(1, this.buscar, this.criterio);

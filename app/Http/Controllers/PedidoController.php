@@ -31,7 +31,7 @@ class PedidoController extends Controller
             $pedidos = Pedido::orderBy('id', 'desc')->paginate(20);
         }
         else {
-            $pedidos = Pedido::where($criterio, 'like', '%' . $buscar . '%' )->orderBy('id', 'desc')->paginate(20);
+            $pedidos = Pedido::where($criterio, 'like', '%' . $buscar . '%' )->orderBy('id', 'desc')->paginate(5);
         }
         // return new PedidoResourceCollection(Pedido::paginate(10));
         return[
@@ -113,12 +113,4 @@ class PedidoController extends Controller
         $pedido->save();
     }
 
-    public function actualizar_Recibido(Request $request)
-    {
-        //Si no es un request de ajax no hacemos nada por seguridad
-        // if(!$request->ajax()) return redirect('/');
-        $pedido = Pedido::findOrFail($request->id);
-        $pedido->estado = 'Recibido';
-        $pedido->save();
-    }
 }
