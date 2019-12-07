@@ -237,6 +237,7 @@
                             'id': id
                         }).then(function (response) {
                             //Mandando informacion de pedido a dulcería/
+                            let me = this;
                             var url = 'https://cafeteria-cine.herokuapp.com/ventas';
                             axios.post(url,{
                                 'productos' : this.productos,

@@ -2291,6 +2291,7 @@ __webpack_require__.r(__webpack_exports__);
             'id': id
           }).then(function (response) {
             //Mandando informacion de pedido a dulcería/
+            var me = this;
             var url = 'https://cafeteria-cine.herokuapp.com/ventas';
             axios.post(url, {
               'productos': this.productos,
