@@ -249,7 +249,8 @@
                 },
                 offset : 3,
                 criterio : 'nombre_cliente',
-                buscar : ''
+                buscar : '',
+                productosJSON : ''
 
             }
         },
@@ -406,6 +407,7 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
+
                                 break;
                             }
                         }

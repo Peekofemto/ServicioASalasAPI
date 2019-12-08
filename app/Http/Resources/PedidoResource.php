@@ -19,7 +19,7 @@ class PedidoResource extends JsonResource
         $productos = json_decode($data);
         return [
             'id' => $this->id,
-            $productos,
+            // $productos,
             'fecha' => $this->fecha,
             'nombre_cliente' => $this->nombre_cliente,
             'observaciones' => $this->observaciones,

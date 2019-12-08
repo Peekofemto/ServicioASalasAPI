@@ -76,11 +76,11 @@ class PedidoController extends Controller
         $pedido->codigo_cliente = $request->codigo_cliente;
         $pedido->puntos = $request->puntos;
         $pedido->costo_final = $request->costo_final;
+        $pedido->productos = $request->productos;
         
         
-        
-        $data = $request->only('productos');
-        $pedido['productos'] = json_encode($data);
+        // $data = $request->only('productos');
+        // $pedido['productos'] = json_encode($data);
         // Pedido::insert($pedido);
         $pedido->save();
         return new PedidoResource($pedido);

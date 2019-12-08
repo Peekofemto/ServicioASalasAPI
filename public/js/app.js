@@ -2311,7 +2311,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       offset: 3,
       criterio: 'nombre_cliente',
-      buscar: ''
+      buscar: '',
+      productosJSON: ''
     };
   },
   computed: {
