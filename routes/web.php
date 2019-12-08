@@ -16,4 +16,3 @@ Route::get('/', function () {
 });
 
 Route::put('/pedido/proceso', 'PedidoController@actualizar_Proceso');
-Route::put('/pedido/recibido', 'PedidoController@actualizar_Recibido');

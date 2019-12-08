@@ -26,36 +26,38 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Info Productos</th>
+                                <!-- <th>Info Productos</th> -->
+                                <th>Nombre Cliente</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Costo Final</th>
-                                <th>Codigo Cliente</th>
-                                <th>Puntos</th>
-                                <th>Nombre Cliente</th>
+                                <!-- <th>Codigo Cliente</th> -->
+                                <!-- <th>Puntos</th> -->
                                 <th>Observaciones</th>
                                 <th>Sala</th>
                                 <th>Asiento</th>
-                                <th>Cambiar Estado</th>
+                                <th>Procesar Pedido</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="pedido in arrayPedido" :key="pedido.id">
               
-                                <td v-text="pedido.productos"></td>
+                                <!-- <td v-text="pedido.productos"></td> -->
+                                <td v-text="pedido.nombre_cliente"></td>
                                 <td v-text="pedido.fecha"></td>
                                 <td v-text="pedido.hora"></td>
                                 <td v-text="pedido.costo_final"></td>
-                                <td v-text="pedido.codigo_cliente"></td>
-                                <td v-text="pedido.puntos"></td>
-                                <td v-text="pedido.nombre_cliente"></td>
+                                <!-- <td v-text="pedido.codigo_cliente"></td> -->
+                                <!-- <td v-text="pedido.puntos"></td> -->
                                 <td v-text="pedido.observaciones"></td>
                                 <td v-text="pedido.sala"></td>
                                 <td v-text="pedido.asiento"></td>
-                                <!-- <td v-text="pedido.estado"></td> -->
                                 <td>
-                                    <template v-if="pedido.estado == 'Recibido'">
+                                    <button type="button" @click="abrirModal('pedido','actualizar',pedido)" class="btn btn-warning btn-sm">
+                                    <i class="icon-share-alt"></i>
+                                    </button> &nbsp;
+                                    <!-- <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
                                             <i class="icon-share-alt"></i>
                                         </button>
@@ -64,7 +66,7 @@
                                         <button type="button" class="btn btn-info btn-sm" disabled>
                                             <i class="icon-check"></i>
                                         </button>
-                                    </template>
+                                    </template> -->
                                 </td>
                                 <td>
                                     <div v-if="pedido.estado === 'Recibido'" >
@@ -109,6 +111,107 @@
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
+
+                <!--Inicio del modal agregar/actualizar-->
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" v-text="tituloModal"></h4>
+                        <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Info Productos</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="productos" class="form-control" placeholder="Productos">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Fecha</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="fecha" class="form-control" placeholder="Fecha">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Hora</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="hora" class="form-control" placeholder="Hora">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Costo Fnal</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="costo_final" class="form-control" placeholder="Costo final">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Código Cliente</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="codigo_cliente" class="form-control" placeholder="Código cliente">                     
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Puntos</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="puntos" class="form-control" placeholder="Puntos">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre Cliente</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="nombre_cliente" class="form-control" placeholder="Nombre del cliente">     
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Observaciones</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="observaciones" class="form-control" placeholder="Observaciones">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Sala</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="sala" class="form-control" placeholder="Sala">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Asiento</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="asiento" class="form-control" placeholder="Asiento">                   
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Estado</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="estado" class="form-control" placeholder="Estado del pedido">   
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProceso()">Procesar Pedido</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!--Fin del modal-->
 
 
 
@@ -212,7 +315,7 @@
                 me.listarPedido(page, buscar, criterio);
             },
             
-            actualizarProceso(id){
+            actualizarProceso(){
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -234,23 +337,9 @@
                         let me = this;
 
                         axios.put('/pedido/proceso',{
-                            'id': id
+                            'id': this.pedido_id
                         }).then(function (response) {
-                            //Mandando informacion de pedido a dulcería/
-                            let me = this;
-                            var url = 'https://cafeteria-cine.herokuapp.com/ventas';
-                            axios.post(url,{
-                                'productos' : this.productos,
-                                'costo_final' : this.costo_final,
-                                'fecha' : this.fecha,
-                                'codigo_cliente' : this.codigo_cliente,
-                                'puntos' : this.puntos,
-                                'estado' : this.estado
-                            }).then(function(response) {
-                                
-                            }).catch(function(error){
-                                console.log(error);
-                            });
+                            me.cerrarModal();
                             me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
                                 'En Proceso',
@@ -260,7 +349,6 @@
                         }).catch(function (error) {
                             console.log(error);
                         });
- 
 
                     } else if (
                         // Read more about handling dismissals
@@ -272,8 +360,86 @@
             },
 
             mandarPedidoTienda(){
+                //Mandando informacion de pedido a dulcería/
+                let me = this;
+                // var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+                axios.post(url,{
+                    'productos' : this.productos,
+                    'costo_final' : this.costo_final,
+                    'fecha' : this.fecha,
+                    'codigo_cliente' : this.codigo_cliente,
+                    'puntos' : this.puntos,
+                    'estado' : this.estado
+                }).then(function(response) {
+                    console.log(response);
+                }).catch(function(error){
+                    console.log(error);
+                });
+            },
 
-            }
+            abrirModal(modelo, accion, data = []){
+                switch(modelo){
+                    case "pedido":
+                    {
+                        switch(accion){
+                            case 'registrar':
+                            {
+                                
+                            }
+                            case 'actualizar':
+                            {
+                                //console.log(data);
+
+                                this.modal = 1;
+                                this.tituloModal = 'Procesar Pedido';
+                                this.tipoAccion = 2;
+
+                                this.pedido_id = data['id'];
+                                this.productos = data['productos'];
+                                this.puntos = data['puntos'];
+                                this.asiento = data['asiento'];
+                                this.codigo_cliente = data['codigo_cliente'];
+                                this.costo_final = data['costo_final'];
+                                this.estado = data['estado'];
+                                this.fecha = data['fecha'];
+                                this.hora = data['hora'];
+                                this.nombre_cliente = data['nombre_cliente'];
+                                this.observaciones = data['observaciones'];
+                                this.sala = data['sala'];
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+            },
+
+            cerrarModal(){
+                this.modal = 0;
+                this.tituloModal = '';
+                
+                // this.idcategoria = 0;
+                // this.nombre_categoria = '';
+                // this.codigo = '';
+                // this.nombre = '';
+                // this.precio_venta = 0;
+                // this.stock = 0;
+                // this.descripcion = '';
+                // this.errorArticulo = 0;
+
+                this.pedido_id = 0;
+                this.productos = '';
+                this.puntos = 0;
+                this.asiento = '';
+                this.codigo_cliente = '';
+                this.costo_final = 0;
+                this.estado = '';
+                this.fecha = '';
+                this.hora = '';
+                this.nombre_cliente = '';
+                this.observaciones = '';
+                this.sala = '';
+            },
 
     },
     mounted() {
@@ -281,3 +447,23 @@
     }
 }
 </script>
+<style>
+    .modal-content{
+        width: 100% !important;
+        position: absolute !important;
+    }
+    .mostrar{
+        display: list-item !important;
+        opacity: 1 !important;
+        position: absolute !important;
+        background-color: #3c29297a !important;
+    }
+    .div-error{
+        display: flex;
+        justify-content: center;
+    }
+    .text-error{
+        color:red !important;
+        font-weight: bold;
+    }
+</style>
