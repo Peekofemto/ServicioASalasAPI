@@ -2448,7 +2448,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.hora = data['hora'];
                   this.nombre_cliente = data['nombre_cliente'];
                   this.observaciones = data['observaciones'];
-                  this.sala = data['sala'];
+                  this.sala = data['sala']; // productosJSON = JSON.parse(this.productos);
+
                   break;
                 }
             }

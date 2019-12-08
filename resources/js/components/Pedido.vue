@@ -407,7 +407,7 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
-
+                                // productosJSON = JSON.parse(this.productos);
                                 break;
                             }
                         }
