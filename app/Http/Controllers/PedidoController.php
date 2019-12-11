@@ -76,12 +76,20 @@ class PedidoController extends Controller
         $pedido->codigo_cliente = $request->codigo_cliente;
         $pedido->puntos = $request->puntos;
         $pedido->costo_final = $request->costo_final;
-        // $pedido->productos = $request->productos;
+        $pedido->numero_venta = $request->numero_venta;
+
+        $productosX = $request->productos;
+
+        $productosString = json_encode($productosX);
+
+        $pedido->productos = $productosString;
         
         
-        $data = $request->only('productos');
-        $pedido['productos'] = json_encode($data);
-        Pedido::insert($pedido);
+        // $data = $request->only('productos');
+
+
+        // $pedido['productos'] = json_decode($data);
+        // Pedido::insert($pedido);
         $pedido->save();
         return new PedidoResource($pedido);
         // return ('Pedido registrado exitosamente!');
@@ -89,8 +97,10 @@ class PedidoController extends Controller
 
     }
     
-    public function update(Pedido $pedido, Request $request)
+    public function update(Request $request, $numero_venta)
     {   
+        // $pedido = Pedido::findOrFail($request->numero_venta);
+        $pedido = Pedido::where('numero_venta', '=', $numero_venta)->first();
         $pedido->update($request->all());
 
 

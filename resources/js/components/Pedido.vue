@@ -350,6 +350,21 @@
                         }).catch(function (error) {
                             console.log(error);
                         });
+                        
+                        //Mandando informacion de pedido a dulcería/
+                        // var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+                        axios.post(url,{
+                             
+                            'costo_final' : this.costo_final,
+                            'fecha' : this.fecha,
+                            'codigo_cliente' : this.codigo_cliente,
+                            'puntos' : this.puntos,
+                            'estado' : 'En proceso'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
 
                     } else if (
                         // Read more about handling dismissals
@@ -407,7 +422,8 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
-                                // productosJSON = JSON.parse(this.productos);
+                                productosJSON = JSON.parse(this.productos)
+                                
                                 break;
                             }
                         }

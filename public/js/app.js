@@ -2399,6 +2399,19 @@ __webpack_require__.r(__webpack_exports__);
             swalWithBootstrapButtons.fire('En Proceso', 'El estado ha sido actualizado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
+          }); //Mandando informacion de pedido a dulcería/
+          // var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+
+          axios.post(url, {
+            'costo_final': _this.costo_final,
+            'fecha': _this.fecha,
+            'codigo_cliente': _this.codigo_cliente,
+            'puntos': _this.puntos,
+            'estado': 'En proceso'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
           });
         } else if ( // Read more about handling dismissals
         result.dismiss === Swal.DismissReason.cancel) {}
@@ -2448,8 +2461,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.hora = data['hora'];
                   this.nombre_cliente = data['nombre_cliente'];
                   this.observaciones = data['observaciones'];
-                  this.sala = data['sala']; // productosJSON = JSON.parse(this.productos);
-
+                  this.sala = data['sala'];
+                  productosJSON = JSON.parse(this.productos);
                   break;
                 }
             }
