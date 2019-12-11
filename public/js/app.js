@@ -2294,6 +2294,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2443,6 +2455,100 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
+    actualizarListo: function actualizarListo() {
+      var _this2 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Estás seguro que quieres procesar el pedido?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          //actualizar estado de pedido de 'Recibido' a 'En Proceso'
+          var me = _this2;
+          axios.put('/pedido/proceso', {
+            'id': _this2.pedido_id
+          }).then(function (response) {
+            me.cerrarModal();
+            me.listarPedido(1, '', 'nombre_cliente');
+            swalWithBootstrapButtons.fire('Listo', 'El pedido ha sido procesado con éxito.', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+          var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this2.numero_venta;
+          axios.put(url, {
+            'estado': 'Listo'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
+    },
+    actualizarEntregado: function actualizarEntregado() {
+      var _this3 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Estás seguro que quieres procesar el pedido?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          //actualizar estado de pedido de 'Recibido' a 'En Proceso'
+          var me = _this3;
+          axios.put('/pedido/proceso', {
+            'id': _this3.pedido_id
+          }).then(function (response) {
+            me.cerrarModal();
+            me.listarPedido(1, '', 'nombre_cliente');
+            swalWithBootstrapButtons.fire('Entregado', 'El pedido ha sido procesado con éxito.', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          }); // productosJSON = JSON.parse(this.productos)
+          //Mandando informacion de pedido a dulcería/
+
+          var url = 'https://cafeteria-cine.herokuapp.com/ventas/' + _this3.numero_venta;
+          axios.patch(url, {
+            'estado': 'Entregado'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+          var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this3.numero_venta;
+          axios.put(url, {
+            'estado': 'Entregado'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
+    },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -2450,15 +2556,57 @@ __webpack_require__.r(__webpack_exports__);
         case "pedido":
           {
             switch (accion) {
-              case 'registrar':
-                {}
+              case 'actualizarListo':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Procesar Pedido(listo)';
+                  this.tipoAccion = 3;
+                  this.pedido_id = data['id'];
+                  this.productos = data['productos'];
+                  this.puntos = data['puntos'];
+                  this.asiento = data['asiento'];
+                  this.codigo_cliente = data['codigo_cliente'];
+                  this.total = data['total'];
+                  this.estado = data['estado'];
+                  this.fecha = data['fecha'];
+                  this.hora = data['hora'];
+                  this.nombre_cliente = data['nombre_cliente'];
+                  this.observaciones = data['observaciones'];
+                  this.sala = data['sala'];
+                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+
+                  break;
+                }
 
               case 'actualizar':
                 {
                   //console.log(data);
                   this.modal = 1;
-                  this.tituloModal = 'Procesar Pedido';
+                  this.tituloModal = 'Procesar Pedido(En proceso)';
                   this.tipoAccion = 2;
+                  this.pedido_id = data['id'];
+                  this.productos = data['productos'];
+                  this.puntos = data['puntos'];
+                  this.asiento = data['asiento'];
+                  this.codigo_cliente = data['codigo_cliente'];
+                  this.total = data['total'];
+                  this.estado = data['estado'];
+                  this.fecha = data['fecha'];
+                  this.hora = data['hora'];
+                  this.nombre_cliente = data['nombre_cliente'];
+                  this.observaciones = data['observaciones'];
+                  this.sala = data['sala'];
+                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+
+                  break;
+                }
+
+              case 'actualizarEntregado':
+                {
+                  //console.log(data);
+                  this.modal = 1;
+                  this.tituloModal = 'Procesar Pedido(Entregado)';
+                  this.tipoAccion = 4;
                   this.pedido_id = data['id'];
                   this.productos = data['productos'];
                   this.puntos = data['puntos'];
@@ -38573,7 +38721,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("i", { staticClass: "fa fa-align-justify" }),
-            _vm._v(" Categorías\n                "),
+            _vm._v(" Categorías\r\n                "),
             _c(
               "button",
               {
@@ -38586,7 +38734,7 @@ var staticRenderFns = [
               },
               [
                 _c("i", { staticClass: "icon-plus" }),
-                _vm._v(" Nuevo\n                ")
+                _vm._v(" Nuevo\r\n                ")
               ]
             )
           ]),
@@ -38668,7 +38816,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \n                                "),
+                      _vm._v("  \r\n                                "),
                       _c(
                         "button",
                         {
@@ -38708,7 +38856,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \n                                "),
+                      _vm._v("  \r\n                                "),
                       _c(
                         "button",
                         {
@@ -38748,7 +38896,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \n                                "),
+                      _vm._v("  \r\n                                "),
                       _c(
                         "button",
                         {
@@ -38788,7 +38936,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \n                                "),
+                      _vm._v("  \r\n                                "),
                       _c(
                         "button",
                         {
@@ -38828,7 +38976,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v(" \n                                "),
+                      _vm._v(" \r\n                                "),
                       _c(
                         "button",
                         {
@@ -39290,6 +39438,52 @@ var render = function() {
                             ),
                             _vm._v("  \n                                  ")
                           ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      pedido.estado == "listo"
+                        ? _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModal(
+                                      "pedido",
+                                      "actualizarListo",
+                                      pedido
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-check-sign" })]
+                            ),
+                            _vm._v("  \n                                  ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      pedido.estado == "listo"
+                        ? _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModal(
+                                      "pedido",
+                                      "actualizarListo",
+                                      pedido
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-flag-checkered" })]
+                            ),
+                            _vm._v("  \n                                  ")
+                          ])
                         : _vm._e()
                     ]),
                     _vm._v(" "),
@@ -39326,12 +39520,12 @@ var render = function() {
                               [_vm._v("En Proceso")]
                             )
                           ])
-                        : pedido.estado === "Listo"
+                        : pedido.estado === "listo"
                         ? _c("div", [
                             _c(
                               "span",
                               { staticClass: "badge badge-pill badge-info" },
-                              [_vm._v("En Proceso")]
+                              [_vm._v("Listo")]
                             )
                           ])
                         : _c("div", [
@@ -39988,6 +40182,38 @@ var render = function() {
                         on: {
                           click: function($event) {
                             return _vm.actualizarProceso()
+                          }
+                        }
+                      },
+                      [_vm._v("Procesar Pedido")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 3
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarListo()
+                          }
+                        }
+                      },
+                      [_vm._v("Procesar Pedido")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 4
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarEntregado()
                           }
                         }
                       },
@@ -52440,7 +52666,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ServicioSalas\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jc-mt\serviciosalas\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

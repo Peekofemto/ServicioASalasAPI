@@ -59,6 +59,16 @@
                                         <i class="icon-share-alt"></i>
                                         </button> &nbsp;
                                     </div>
+                                    <div v-if="pedido.estado == 'listo'">
+                                        <button type="button" @click="abrirModal('pedido','actualizarListo',pedido)" class="btn btn-warning btn-sm">
+                                        <i class="icon-check-sign"></i>
+                                        </button> &nbsp;
+                                    </div>
+                                    <div v-if="pedido.estado == 'listo'">
+                                        <button type="button" @click="abrirModal('pedido','actualizarListo',pedido)" class="btn btn-warning btn-sm">
+                                        <i class="icon-flag-checkered"></i>
+                                        </button> &nbsp;
+                                    </div>
                                     <!-- <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
                                             <i class="icon-share-alt"></i>
@@ -87,8 +97,8 @@
                                     <span class="badge badge-pill badge-primary">En Proceso</span>
                                     </div>
 
-                                    <div v-else-if="pedido.estado === 'Listo'" >
-                                    <span class="badge badge-pill badge-info">En Proceso</span>
+                                    <div v-else-if="pedido.estado === 'listo'" >
+                                    <span class="badge badge-pill badge-info">Listo</span>
                                     </div>
 
                                     <div v-else >
@@ -219,6 +229,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProceso()">Procesar Pedido</button>
+                        <button type="button" v-if="tipoAccion==3" class="btn btn-primary" @click="actualizarListo()">Procesar Pedido</button>
+                        <button type="button" v-if="tipoAccion==4" class="btn btn-primary" @click="actualizarEntregado()">Procesar Pedido</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -404,23 +416,191 @@
                     })
             },
 
+            actualizarListo(){
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                        buttonsStyling: false,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Estás seguro que quieres procesar el pedido?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Aceptar',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        //actualizar estado de pedido de 'Recibido' a 'En Proceso'
+                        let me = this;
+
+                        axios.put('/pedido/proceso',{
+                            'id': this.pedido_id
+                        }).then(function (response) {
+                            me.cerrarModal();
+                            me.listarPedido(1, '', 'nombre_cliente');
+                            swalWithBootstrapButtons.fire(
+                                'Listo',
+                                'El pedido ha sido procesado con éxito.',
+                                'success'
+                        )
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                        
+                        
+
+                        var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + this.numero_venta;
+                        axios.put(url,{
+                            'estado' : 'Listo'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+                        
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+
+                    }
+                    })
+            },
+
+            actualizarEntregado(){
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                        buttonsStyling: false,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Estás seguro que quieres procesar el pedido?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Aceptar',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        //actualizar estado de pedido de 'Recibido' a 'En Proceso'
+                        let me = this;
+
+                        axios.put('/pedido/proceso',{
+                            'id': this.pedido_id
+                        }).then(function (response) {
+                            me.cerrarModal();
+                            me.listarPedido(1, '', 'nombre_cliente');
+                            swalWithBootstrapButtons.fire(
+                                'Entregado',
+                                'El pedido ha sido procesado con éxito.',
+                                'success'
+                        )
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                        
+                        // productosJSON = JSON.parse(this.productos)
+                        //Mandando informacion de pedido a dulcería/
+                        var url = 'https://cafeteria-cine.herokuapp.com/ventas/' + this.numero_venta;
+                        axios.patch(url,{
+                            'estado' : 'Entregado'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+
+                        var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + this.numero_venta;
+                        axios.put(url,{
+                            
+                            'estado' : 'Entregado'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+                        
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+
+                    }
+                    })
+            },
+
 
             abrirModal(modelo, accion, data = []){
                 switch(modelo){
                     case "pedido":
                     {
                         switch(accion){
-                            case 'registrar':
+                            case 'actualizarListo':
                             {
+                                this.modal = 1;
+                                this.tituloModal = 'Procesar Pedido(listo)';
+                                this.tipoAccion = 3;
+
+                                this.pedido_id = data['id'];
+                                this.productos = data['productos'];
+                                this.puntos = data['puntos'];
+                                this.asiento = data['asiento'];
+                                this.codigo_cliente = data['codigo_cliente'];
+                                this.total = data['total'];
+                                this.estado = data['estado'];
+                                this.fecha = data['fecha'];
+                                this.hora = data['hora'];
+                                this.nombre_cliente = data['nombre_cliente'];
+                                this.observaciones = data['observaciones'];
+                                this.sala = data['sala'];
+                                this.numero_venta = data['numero_venta'];
                                 
+                                // productosJSON = JSON.parse(this.productos)
+                                
+                                break;
                             }
                             case 'actualizar':
                             {
                                 //console.log(data);
 
                                 this.modal = 1;
-                                this.tituloModal = 'Procesar Pedido';
+                                this.tituloModal = 'Procesar Pedido(En proceso)';
                                 this.tipoAccion = 2;
+
+                                this.pedido_id = data['id'];
+                                this.productos = data['productos'];
+                                this.puntos = data['puntos'];
+                                this.asiento = data['asiento'];
+                                this.codigo_cliente = data['codigo_cliente'];
+                                this.total = data['total'];
+                                this.estado = data['estado'];
+                                this.fecha = data['fecha'];
+                                this.hora = data['hora'];
+                                this.nombre_cliente = data['nombre_cliente'];
+                                this.observaciones = data['observaciones'];
+                                this.sala = data['sala'];
+                                this.numero_venta = data['numero_venta'];
+                                
+                                // productosJSON = JSON.parse(this.productos)
+                                
+                                break;
+                            }
+                            case 'actualizarEntregado':
+                            {
+                                //console.log(data);
+
+                                this.modal = 1;
+                                this.tituloModal = 'Procesar Pedido(Entregado)';
+                                this.tipoAccion = 4;
 
                                 this.pedido_id = data['id'];
                                 this.productos = data['productos'];
