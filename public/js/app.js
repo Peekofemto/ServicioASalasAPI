@@ -2282,6 +2282,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2297,6 +2305,7 @@ __webpack_require__.r(__webpack_exports__);
       costo_final: 0,
       codigo_cliente: '',
       puntos: 0,
+      numero_venta: '',
       arrayPedido: [],
       modal: 0,
       tituloModal: '',
@@ -2410,6 +2419,7 @@ __webpack_require__.r(__webpack_exports__);
             'costo_final': _this.costo_final,
             'fecha': _this.fecha,
             'codigo_cliente': _this.codigo_cliente,
+            'numero_venta': _this.numero_venta,
             'puntos': _this.puntos,
             'estado': 'En proceso'
           }).then(function (response) {
@@ -39901,6 +39911,45 @@ var render = function() {
                                 return
                               }
                               _vm.estado = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Número de venta")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.numero_venta,
+                              expression: "numero_venta"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            disabled: "",
+                            type: "text",
+                            placeholder: "Número de venta"
+                          },
+                          domProps: { value: _vm.numero_venta },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.numero_venta = $event.target.value
                             }
                           }
                         })

@@ -202,6 +202,14 @@
                                     <input disabled type="text" v-model="estado" class="form-control" placeholder="Estado del pedido">   
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Número de venta</label>
+                                <div class="col-md-9">
+                                    <input disabled type="text" v-model="numero_venta" class="form-control" placeholder="Número de venta">   
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -235,6 +243,7 @@
                 costo_final : 0,
                 codigo_cliente : '',
                 puntos : 0,
+                numero_venta : '',
                 arrayPedido : [],
                 modal : 0,
                 tituloModal : '',
@@ -362,6 +371,7 @@
                             'costo_final' : this.costo_final,
                             'fecha' : this.fecha,
                             'codigo_cliente' : this.codigo_cliente,
+                            'numero_venta' : this.numero_venta,
                             'puntos' : this.puntos,
                             'estado' : 'En proceso'
                         }).then(function(response) {
