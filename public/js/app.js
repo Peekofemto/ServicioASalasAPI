@@ -2431,9 +2431,8 @@ __webpack_require__.r(__webpack_exports__);
           })["catch"](function (error) {
             console.log(error);
           });
-          var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/';
+          var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this.numero_venta;
           axios.put(url, {
-            'numero_venta': _this.numero_venta,
             'estado': 'En proceso'
           }).then(function (response) {
             console.log(response);
