@@ -69,16 +69,16 @@
                                     </template> -->
                                 </td>
                                 <td>
-                                    <div v-if="pedido.estado === 'Recibido'" >
-                                    <span class="badge badge-pill badge-info">Recibido</span>
+                                    <div v-if="pedido.estado === 'Entregado'" >
+                                    <span class="badge badge-pill badge-success">Recibido</span>
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'Cancelado'" >
                                     <span class="badge badge-pill badge-danger">Cancelado</span>
                                     </div>
 
-                                    <div v-else-if="pedido.estado === 'Entregado'" >
-                                    <span class="badge badge-pill badge-success">Entregado</span>
+                                    <div v-else-if="pedido.estado === 'Pendiente'" >
+                                    <span class="badge badge-pill badge-info">Pendiente</span>
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'En proceso'" >
@@ -251,6 +251,7 @@
                 criterio : 'nombre_cliente',
                 buscar : '',
                 productosJSON : ''
+                
 
             }
         },
@@ -351,10 +352,11 @@
                             console.log(error);
                         });
                         
+                        // productosJSON = JSON.parse(this.productos)
                         //Mandando informacion de pedido a dulcería/
-                        // var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+                        var url = 'https://cafeteria-cine.herokuapp.com/ventas';
                         axios.post(url,{
-                             
+                            'productos' :  JSON.parse(this.productos),
                             'costo_final' : this.costo_final,
                             'fecha' : this.fecha,
                             'codigo_cliente' : this.codigo_cliente,
@@ -422,7 +424,7 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
-                                productosJSON = JSON.parse(this.productos)
+                                // productosJSON = JSON.parse(this.productos)
                                 
                                 break;
                             }

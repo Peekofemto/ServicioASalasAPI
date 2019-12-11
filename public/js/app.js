@@ -2399,10 +2399,12 @@ __webpack_require__.r(__webpack_exports__);
             swalWithBootstrapButtons.fire('En Proceso', 'El estado ha sido actualizado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
-          }); //Mandando informacion de pedido a dulcería/
-          // var url = 'https://cafeteria-cine.herokuapp.com/ventas';
+          }); // productosJSON = JSON.parse(this.productos)
+          //Mandando informacion de pedido a dulcería/
 
+          var url = 'https://cafeteria-cine.herokuapp.com/ventas';
           axios.post(url, {
+            'productos': JSON.parse(_this.productos),
             'costo_final': _this.costo_final,
             'fecha': _this.fecha,
             'codigo_cliente': _this.codigo_cliente,
@@ -2461,8 +2463,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.hora = data['hora'];
                   this.nombre_cliente = data['nombre_cliente'];
                   this.observaciones = data['observaciones'];
-                  this.sala = data['sala'];
-                  productosJSON = JSON.parse(this.productos);
+                  this.sala = data['sala']; // productosJSON = JSON.parse(this.productos)
+
                   break;
                 }
             }
@@ -39279,11 +39281,11 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      pedido.estado === "Recibido"
+                      pedido.estado === "Entregado"
                         ? _c("div", [
                             _c(
                               "span",
-                              { staticClass: "badge badge-pill badge-info" },
+                              { staticClass: "badge badge-pill badge-success" },
                               [_vm._v("Recibido")]
                             )
                           ])
@@ -39295,12 +39297,12 @@ var render = function() {
                               [_vm._v("Cancelado")]
                             )
                           ])
-                        : pedido.estado === "Entregado"
+                        : pedido.estado === "Pendiente"
                         ? _c("div", [
                             _c(
                               "span",
-                              { staticClass: "badge badge-pill badge-success" },
-                              [_vm._v("Entregado")]
+                              { staticClass: "badge badge-pill badge-info" },
+                              [_vm._v("Pendiente")]
                             )
                           ])
                         : pedido.estado === "En proceso"
