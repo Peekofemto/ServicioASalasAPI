@@ -2420,7 +2420,7 @@ __webpack_require__.r(__webpack_exports__);
           var url = 'https://cafeteria-cine.herokuapp.com/ventas';
           axios.post(url, {
             'productos': JSON.parse(_this.productos),
-            'costo_final': _this.costo_final,
+            'costo_final': _this.total,
             'fecha': _this.fecha,
             'codigo_cliente': _this.codigo_cliente,
             'numero_venta': _this.numero_venta,
@@ -2487,13 +2487,14 @@ __webpack_require__.r(__webpack_exports__);
       this.puntos = 0;
       this.asiento = '';
       this.codigo_cliente = '';
-      this.costo_final = 0;
+      this.total = 0;
       this.estado = '';
       this.fecha = '';
       this.hora = '';
       this.nombre_cliente = '';
       this.observaciones = '';
       this.sala = '';
+      this.numero_venta = '';
     }
   },
   mounted: function mounted() {
@@ -39244,7 +39245,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(pedido.costo_final) }
+                      domProps: { textContent: _vm._s(pedido.total) }
                     }),
                     _vm._v(" "),
                     _c("td", {
@@ -39608,7 +39609,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Costo Fnal")]
+                        [_vm._v("Costo Final")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [

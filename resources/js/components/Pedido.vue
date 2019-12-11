@@ -47,7 +47,7 @@
                                 <td v-text="pedido.nombre_cliente"></td>
                                 <td v-text="pedido.fecha"></td>
                                 <td v-text="pedido.hora"></td>
-                                <td v-text="pedido.costo_final"></td>
+                                <td v-text="pedido.total"></td>
                                 <!-- <td v-text="pedido.codigo_cliente"></td> -->
                                 <!-- <td v-text="pedido.puntos"></td> -->
                                 <td v-text="pedido.observaciones"></td>
@@ -153,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Costo Fnal</label>
+                                <label class="col-md-3 form-control-label" for="text-input">Costo Final</label>
                                 <div class="col-md-9">
                                     <input disabled type="text" v-model="total" class="form-control" placeholder="Costo final">
                                 </div>
@@ -372,7 +372,7 @@
                         var url = 'https://cafeteria-cine.herokuapp.com/ventas';
                         axios.post(url,{
                             'productos' :  JSON.parse(this.productos),
-                            'costo_final' : this.costo_final,
+                            'costo_final' : this.total,
                             'fecha' : this.fecha,
                             'codigo_cliente' : this.codigo_cliente,
                             'numero_venta' : this.numero_venta,
@@ -424,6 +424,7 @@
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
                                 this.numero_venta = data['numero_venta'];
+                                
                                 // productosJSON = JSON.parse(this.productos)
                                 
                                 break;
@@ -452,13 +453,14 @@
                 this.puntos = 0;
                 this.asiento = '';
                 this.codigo_cliente = '';
-                this.costo_final = 0;
+                this.total = 0;
                 this.estado = '';
                 this.fecha = '';
                 this.hora = '';
                 this.nombre_cliente = '';
                 this.observaciones = '';
                 this.sala = '';
+                this.numero_venta = '';
             },
 
     },
