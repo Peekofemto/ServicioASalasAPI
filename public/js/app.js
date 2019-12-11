@@ -2431,23 +2431,6 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
-    mandarPedidoTienda: function mandarPedidoTienda() {
-      //Mandando informacion de pedido a dulcería/
-      var me = this; // var url = 'https://cafeteria-cine.herokuapp.com/ventas';
-
-      axios.post(url, {
-        'productos': this.productos,
-        'costo_final': this.costo_final,
-        'fecha': this.fecha,
-        'codigo_cliente': this.codigo_cliente,
-        'puntos': this.puntos,
-        'estado': this.estado
-      }).then(function (response) {
-        console.log(response);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -2475,7 +2458,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.hora = data['hora'];
                   this.nombre_cliente = data['nombre_cliente'];
                   this.observaciones = data['observaciones'];
-                  this.sala = data['sala']; // productosJSON = JSON.parse(this.productos)
+                  this.sala = data['sala'];
+                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
 
                   break;
                 }
