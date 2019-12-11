@@ -342,7 +342,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                        title: 'Estás seguro que quieres actualizar el estado?',
+                        title: 'Estás seguro que quieres procesar el pedido?',
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonText: 'Aceptar',
@@ -360,7 +360,7 @@
                             me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
                                 'En Proceso',
-                                'El estado ha sido actualizado con éxito.',
+                                'El pedido ha sido procesado con éxito.',
                                 'success'
                         )
                         }).catch(function (error) {
@@ -383,6 +383,17 @@
                         }).catch(function(error){
                             console.log(error);
                         });
+
+                        var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/';
+                        axios.put(url,{
+                            'numero_venta' : this.numero_venta,
+                            'estado' : 'En proceso'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+                        
 
                     } else if (
                         // Read more about handling dismissals

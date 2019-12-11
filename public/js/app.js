@@ -2396,7 +2396,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Estás seguro que quieres actualizar el estado?',
+        title: 'Estás seguro que quieres procesar el pedido?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -2411,7 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (response) {
             me.cerrarModal();
             me.listarPedido(1, '', 'nombre_cliente');
-            swalWithBootstrapButtons.fire('En Proceso', 'El estado ha sido actualizado con éxito.', 'success');
+            swalWithBootstrapButtons.fire('En Proceso', 'El pedido ha sido procesado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           }); // productosJSON = JSON.parse(this.productos)
@@ -2425,6 +2425,15 @@ __webpack_require__.r(__webpack_exports__);
             'codigo_cliente': _this.codigo_cliente,
             'numero_venta': _this.numero_venta,
             'puntos': _this.puntos,
+            'estado': 'En proceso'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+          var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/';
+          axios.put(url, {
+            'numero_venta': _this.numero_venta,
             'estado': 'En proceso'
           }).then(function (response) {
             console.log(response);
