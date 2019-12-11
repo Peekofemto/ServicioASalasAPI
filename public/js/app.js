@@ -2290,6 +2290,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2302,7 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
       asiento: '',
       hora: '',
       estado: '',
-      costo_final: 0,
+      total: 0,
       codigo_cliente: '',
       puntos: 0,
       numero_venta: '',
@@ -2452,7 +2456,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.puntos = data['puntos'];
                   this.asiento = data['asiento'];
                   this.codigo_cliente = data['codigo_cliente'];
-                  this.costo_final = data['costo_final'];
+                  this.total = data['total'];
                   this.estado = data['estado'];
                   this.fecha = data['fecha'];
                   this.hora = data['hora'];
@@ -39313,6 +39317,14 @@ var render = function() {
                               [_vm._v("En Proceso")]
                             )
                           ])
+                        : pedido.estado === "Listo"
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-info" },
+                              [_vm._v("En Proceso")]
+                            )
+                          ])
                         : _c("div", [
                             _c("span", {
                               staticClass: "badge badge-pill badge-dark",
@@ -39605,8 +39617,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.costo_final,
-                              expression: "costo_final"
+                              value: _vm.total,
+                              expression: "total"
                             }
                           ],
                           staticClass: "form-control",
@@ -39615,13 +39627,13 @@ var render = function() {
                             type: "text",
                             placeholder: "Costo final"
                           },
-                          domProps: { value: _vm.costo_final },
+                          domProps: { value: _vm.total },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.costo_final = $event.target.value
+                              _vm.total = $event.target.value
                             }
                           }
                         })

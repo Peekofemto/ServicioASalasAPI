@@ -75,7 +75,7 @@ class PedidoController extends Controller
         $pedido->estado = $request->estado;
         $pedido->codigo_cliente = $request->codigo_cliente;
         $pedido->puntos = $request->puntos;
-        $pedido->costo_final = $request->costo_final;
+        $pedido->total = $request->total;
         $pedido->numero_venta = $request->numero_venta;
 
         $productosX = $request->productos;

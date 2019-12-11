@@ -87,6 +87,10 @@
                                     <span class="badge badge-pill badge-primary">En Proceso</span>
                                     </div>
 
+                                    <div v-else-if="pedido.estado === 'Listo'" >
+                                    <span class="badge badge-pill badge-info">En Proceso</span>
+                                    </div>
+
                                     <div v-else >
                                     <span class="badge badge-pill badge-dark" v-text="pedido.estado"></span>
                                     </div>
@@ -151,7 +155,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Costo Fnal</label>
                                 <div class="col-md-9">
-                                    <input disabled type="text" v-model="costo_final" class="form-control" placeholder="Costo final">
+                                    <input disabled type="text" v-model="total" class="form-control" placeholder="Costo final">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -240,7 +244,7 @@
                 asiento : '',
                 hora : '',
                 estado : '',
-                costo_final : 0,
+                total : 0,
                 codigo_cliente : '',
                 puntos : 0,
                 numero_venta : '',
@@ -412,7 +416,7 @@
                                 this.puntos = data['puntos'];
                                 this.asiento = data['asiento'];
                                 this.codigo_cliente = data['codigo_cliente'];
-                                this.costo_final = data['costo_final'];
+                                this.total = data['total'];
                                 this.estado = data['estado'];
                                 this.fecha = data['fecha'];
                                 this.hora = data['hora'];

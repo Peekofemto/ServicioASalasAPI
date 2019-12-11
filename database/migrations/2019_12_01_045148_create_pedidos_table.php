@@ -30,7 +30,7 @@ class CreatePedidosTable extends Migration
 
             $table->string('codigo_cliente');
             $table->integer('puntos')->unsigned();
-            $table->double('costo_final', 8, 2);
+            $table->double('total', 8, 2);
 
             $table->string('numero_venta');
 

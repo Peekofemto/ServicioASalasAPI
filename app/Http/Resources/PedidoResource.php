@@ -29,7 +29,7 @@ class PedidoResource extends JsonResource
             'estado' => $this->estado,
             'codigo_cliente' => $this->codigo_cliente,
             'puntos' => $this->puntos,
-            'costo_final' => $this->costo_final,
+            'total' => $this->total,
         ];
         // return parent::toArray($request);
     }
