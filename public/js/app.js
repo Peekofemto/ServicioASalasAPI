@@ -2280,6 +2280,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39260,24 +39262,28 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning btn-sm",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.abrirModal(
-                                "pedido",
-                                "actualizar",
-                                pedido
-                              )
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "icon-share-alt" })]
-                      ),
-                      _vm._v("  \n                                  ")
+                      pedido.estado == "Pendiente"
+                        ? _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModal(
+                                      "pedido",
+                                      "actualizar",
+                                      pedido
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-share-alt" })]
+                            ),
+                            _vm._v("  \n                                  ")
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -39301,7 +39307,7 @@ var render = function() {
                         ? _c("div", [
                             _c(
                               "span",
-                              { staticClass: "badge badge-pill badge-info" },
+                              { staticClass: "badge badge-pill badge-warning" },
                               [_vm._v("Pendiente")]
                             )
                           ])

@@ -54,9 +54,11 @@
                                 <td v-text="pedido.sala"></td>
                                 <td v-text="pedido.asiento"></td>
                                 <td>
-                                    <button type="button" @click="abrirModal('pedido','actualizar',pedido)" class="btn btn-warning btn-sm">
-                                    <i class="icon-share-alt"></i>
-                                    </button> &nbsp;
+                                    <div v-if="pedido.estado == 'Pendiente'">
+                                        <button type="button" @click="abrirModal('pedido','actualizar',pedido)" class="btn btn-warning btn-sm">
+                                        <i class="icon-share-alt"></i>
+                                        </button> &nbsp;
+                                    </div>
                                     <!-- <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
                                             <i class="icon-share-alt"></i>
@@ -78,7 +80,7 @@
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'Pendiente'" >
-                                    <span class="badge badge-pill badge-info">Pendiente</span>
+                                    <span class="badge badge-pill badge-warning">Pendiente</span>
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'En proceso'" >
