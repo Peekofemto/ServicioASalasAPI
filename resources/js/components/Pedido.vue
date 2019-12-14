@@ -71,7 +71,7 @@
                                     </div>
                                     
                                     <div v-else>
-                                        <span class="badge badge-pill badge-dark" v-text="pedido.estado"></span>
+                                        <!-- <span class="badge badge-pill badge-dark" v-text="pedido.estado"></span> -->
                                     </div>
                                     <!-- <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">

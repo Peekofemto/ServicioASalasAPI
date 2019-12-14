@@ -39488,12 +39488,7 @@ var render = function() {
                             ),
                             _vm._v("  \n                                  ")
                           ])
-                        : _c("div", [
-                            _c("span", {
-                              staticClass: "badge badge-pill badge-dark",
-                              domProps: { textContent: _vm._s(pedido.estado) }
-                            })
-                          ])
+                        : _c("div")
                     ]),
                     _vm._v(" "),
                     _c("td", [
