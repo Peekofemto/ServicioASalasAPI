@@ -55,9 +55,23 @@
                                 <td v-text="pedido.asiento"></td>
                                 <td>
                                     <div v-if="pedido.estado == 'Pendiente'">
-                                        <button type="button" @click="abrirModal('pedido','actualizar',pedido)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('pedido','actualizar_EnProceso',pedido)" class="btn btn-warning btn-sm" title="Mandar pedido a cafetería/dulcería">
                                         <i class="icon-share-alt"></i>
                                         </button> &nbsp;
+                                    </div>
+                                    <div v-else-if="pedido.estado == 'Listo'">
+                                        <button type="button" @click="abrirModal('pedido','notificar_Listo',pedido)" class="btn btn-info btn-sm" title="Notificar a servicio en línea pedido listo">
+                                        <i class="icon-share-alt"></i>
+                                        </button> &nbsp;
+
+                                        <!-- :disabled="pedido_listo == 0" -->
+                                        <button type="button"  @click="abrirModal('pedido','actualizar_Entregado',pedido)" class="btn btn-success btn-sm" title="Notificar que el pedido ha sido entregado">
+                                        <i class="icon-share-alt"></i>
+                                        </button> &nbsp;
+                                    </div>
+                                    
+                                    <div v-else>
+                                        <span class="badge badge-pill badge-dark" v-text="pedido.estado"></span>
                                     </div>
                                     <!-- <template v-if="pedido.estado == 'Recibido'">
                                         <button type="button" class="btn btn-danger btn-sm" @click="actualizarProceso(pedido.id)">
@@ -71,15 +85,7 @@
                                     </template> -->
                                 </td>
                                 <td>
-                                    <div v-if="pedido.estado === 'Entregado'" >
-                                    <span class="badge badge-pill badge-success">Recibido</span>
-                                    </div>
-
-                                    <div v-else-if="pedido.estado === 'Cancelado'" >
-                                    <span class="badge badge-pill badge-danger">Cancelado</span>
-                                    </div>
-
-                                    <div v-else-if="pedido.estado === 'Pendiente'" >
+                                    <div v-if="pedido.estado === 'Pendiente'" >
                                     <span class="badge badge-pill badge-warning">Pendiente</span>
                                     </div>
 
@@ -88,7 +94,15 @@
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'Listo'" >
-                                    <span class="badge badge-pill badge-info">En Proceso</span>
+                                    <span class="badge badge-pill badge-info">Listo</span>
+                                    </div>
+
+                                    <div v-else-if="pedido.estado === 'Entregado'" >
+                                    <span class="badge badge-pill badge-success">Recibido</span>
+                                    </div>
+
+                                    <div v-else-if="pedido.estado === 'Cancelado'" >
+                                    <span class="badge badge-pill badge-danger">Cancelado</span>
                                     </div>
 
                                     <div v-else >
@@ -217,8 +231,10 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProceso()">Procesar Pedido</button>
+                        <button type="button" class="btn btn-danger" @click="cerrarModal()">Cerrar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarProceso()">Procesar Pedido</button>
+                        <button type="button" v-if="tipoAccion==3" class="btn btn-info" @click="actualizarProceso()">Notificar Pedido Listo</button>
+                        <button type="button" v-if="tipoAccion==4" class="btn btn-success" @click="actualizarProceso()">Notificar Pedido Entregado</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -265,7 +281,8 @@
                 offset : 3,
                 criterio : 'nombre_cliente',
                 buscar : '',
-                productosJSON : ''
+                productosJSON : '',
+                pedido_listo : 0
                 
 
             }
@@ -332,7 +349,10 @@
                 me.listarPedido(page, buscar, criterio);
             },
             
-            actualizarProceso(){
+            //Actualizamos el estado del pedido a en proceso 
+            //avisando a Servicio en linea y cafetería/dulcería
+            actualizarProceso()
+            {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -404,23 +424,78 @@
                     })
             },
 
+            notificarListo()
+            {
+                console.log("Estoy en notificar pedido");
+            },
+
+            actualizarEntregado()
+            {
+                console.log("Estoy en actualizar a entregado");
+            },
+
 
             abrirModal(modelo, accion, data = []){
                 switch(modelo){
                     case "pedido":
                     {
                         switch(accion){
-                            case 'registrar':
-                            {
-                                
-                            }
-                            case 'actualizar':
+                            case 'actualizar_EnProceso':
                             {
                                 //console.log(data);
 
                                 this.modal = 1;
                                 this.tituloModal = 'Procesar Pedido';
                                 this.tipoAccion = 2;
+
+                                this.pedido_id = data['id'];
+                                this.productos = data['productos'];
+                                this.puntos = data['puntos'];
+                                this.asiento = data['asiento'];
+                                this.codigo_cliente = data['codigo_cliente'];
+                                this.total = data['total'];
+                                this.estado = data['estado'];
+                                this.fecha = data['fecha'];
+                                this.hora = data['hora'];
+                                this.nombre_cliente = data['nombre_cliente'];
+                                this.observaciones = data['observaciones'];
+                                this.sala = data['sala'];
+                                this.numero_venta = data['numero_venta'];
+                                
+                                // productosJSON = JSON.parse(this.productos)
+                                
+                                break;
+                            }
+                            case 'notificar_Listo':
+                            {
+                                this.modal = 1;
+                                this.tituloModal = 'Notificar Pedido Listo';
+                                this.tipoAccion = 3;
+                                this.pedido_listo = 1;
+
+                                this.pedido_id = data['id'];
+                                this.productos = data['productos'];
+                                this.puntos = data['puntos'];
+                                this.asiento = data['asiento'];
+                                this.codigo_cliente = data['codigo_cliente'];
+                                this.total = data['total'];
+                                this.estado = data['estado'];
+                                this.fecha = data['fecha'];
+                                this.hora = data['hora'];
+                                this.nombre_cliente = data['nombre_cliente'];
+                                this.observaciones = data['observaciones'];
+                                this.sala = data['sala'];
+                                this.numero_venta = data['numero_venta'];
+                                
+                                // productosJSON = JSON.parse(this.productos)
+                                
+                                break;
+                            }
+                            case 'actualizar_Entregado':
+                            {
+                                this.modal = 1;
+                                this.tituloModal = 'Notificar Pedido Entregado';
+                                this.tipoAccion = 4;
 
                                 this.pedido_id = data['id'];
                                 this.productos = data['productos'];

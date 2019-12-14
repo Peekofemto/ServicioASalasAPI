@@ -2294,6 +2294,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2327,7 +2343,8 @@ __webpack_require__.r(__webpack_exports__);
       offset: 3,
       criterio: 'nombre_cliente',
       buscar: '',
-      productosJSON: ''
+      productosJSON: '',
+      pedido_listo: 0
     };
   },
   computed: {
@@ -2385,6 +2402,8 @@ __webpack_require__.r(__webpack_exports__);
 
       me.listarPedido(page, buscar, criterio);
     },
+    //Actualizamos el estado del pedido a en proceso 
+    //avisando a Servicio en linea y cafetería/dulcería
     actualizarProceso: function actualizarProceso() {
       var _this = this;
 
@@ -2443,6 +2462,12 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
+    notificarListo: function notificarListo() {
+      console.log("Estoy en notificar pedido");
+    },
+    actualizarEntregado: function actualizarEntregado() {
+      console.log("Estoy en actualizar a entregado");
+    },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -2450,15 +2475,57 @@ __webpack_require__.r(__webpack_exports__);
         case "pedido":
           {
             switch (accion) {
-              case 'registrar':
-                {}
-
-              case 'actualizar':
+              case 'actualizar_EnProceso':
                 {
                   //console.log(data);
                   this.modal = 1;
                   this.tituloModal = 'Procesar Pedido';
                   this.tipoAccion = 2;
+                  this.pedido_id = data['id'];
+                  this.productos = data['productos'];
+                  this.puntos = data['puntos'];
+                  this.asiento = data['asiento'];
+                  this.codigo_cliente = data['codigo_cliente'];
+                  this.total = data['total'];
+                  this.estado = data['estado'];
+                  this.fecha = data['fecha'];
+                  this.hora = data['hora'];
+                  this.nombre_cliente = data['nombre_cliente'];
+                  this.observaciones = data['observaciones'];
+                  this.sala = data['sala'];
+                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+
+                  break;
+                }
+
+              case 'notificar_Listo':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Notificar Pedido Listo';
+                  this.tipoAccion = 3;
+                  this.pedido_listo = 1;
+                  this.pedido_id = data['id'];
+                  this.productos = data['productos'];
+                  this.puntos = data['puntos'];
+                  this.asiento = data['asiento'];
+                  this.codigo_cliente = data['codigo_cliente'];
+                  this.total = data['total'];
+                  this.estado = data['estado'];
+                  this.fecha = data['fecha'];
+                  this.hora = data['hora'];
+                  this.nombre_cliente = data['nombre_cliente'];
+                  this.observaciones = data['observaciones'];
+                  this.sala = data['sala'];
+                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+
+                  break;
+                }
+
+              case 'actualizar_Entregado':
+                {
+                  this.modal = 1;
+                  this.tituloModal = 'Notificar Pedido Entregado';
+                  this.tipoAccion = 4;
                   this.pedido_id = data['id'];
                   this.productos = data['productos'];
                   this.puntos = data['puntos'];
@@ -39275,12 +39342,15 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-warning btn-sm",
-                                attrs: { type: "button" },
+                                attrs: {
+                                  type: "button",
+                                  title: "Mandar pedido a cafetería/dulcería"
+                                },
                                 on: {
                                   click: function($event) {
                                     return _vm.abrirModal(
                                       "pedido",
-                                      "actualizar",
+                                      "actualizar_EnProceso",
                                       pedido
                                     )
                                   }
@@ -39290,27 +39360,66 @@ var render = function() {
                             ),
                             _vm._v("  \n                                  ")
                           ])
-                        : _vm._e()
+                        : pedido.estado == "Listo"
+                        ? _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-info btn-sm",
+                                attrs: {
+                                  type: "button",
+                                  title:
+                                    "Notificar a servicio en línea pedido listo"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModal(
+                                      "pedido",
+                                      "notificar_Listo",
+                                      pedido
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-share-alt" })]
+                            ),
+                            _vm._v(
+                              "  \n\n                                      "
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-sm",
+                                attrs: {
+                                  type: "button",
+                                  title:
+                                    "Notificar que el pedido ha sido entregado"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModal(
+                                      "pedido",
+                                      "actualizar_Entregado",
+                                      pedido
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-share-alt" })]
+                            ),
+                            _vm._v("  \n                                  ")
+                          ])
+                        : _c("div", [
+                            _c("span", {
+                              staticClass: "badge badge-pill badge-dark",
+                              domProps: { textContent: _vm._s(pedido.estado) }
+                            })
+                          ])
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      pedido.estado === "Entregado"
-                        ? _c("div", [
-                            _c(
-                              "span",
-                              { staticClass: "badge badge-pill badge-success" },
-                              [_vm._v("Recibido")]
-                            )
-                          ])
-                        : pedido.estado === "Cancelado"
-                        ? _c("div", [
-                            _c(
-                              "span",
-                              { staticClass: "badge badge-pill badge-danger" },
-                              [_vm._v("Cancelado")]
-                            )
-                          ])
-                        : pedido.estado === "Pendiente"
+                      pedido.estado === "Pendiente"
                         ? _c("div", [
                             _c(
                               "span",
@@ -39331,7 +39440,23 @@ var render = function() {
                             _c(
                               "span",
                               { staticClass: "badge badge-pill badge-info" },
-                              [_vm._v("En Proceso")]
+                              [_vm._v("Listo")]
+                            )
+                          ])
+                        : pedido.estado === "Entregado"
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-success" },
+                              [_vm._v("Recibido")]
+                            )
+                          ])
+                        : pedido.estado === "Cancelado"
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-pill badge-danger" },
+                              [_vm._v("Cancelado")]
                             )
                           ])
                         : _c("div", [
@@ -39968,7 +40093,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-secondary",
+                    staticClass: "btn btn-danger",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -39983,7 +40108,7 @@ var render = function() {
                   ? _c(
                       "button",
                       {
-                        staticClass: "btn btn-primary",
+                        staticClass: "btn btn-warning",
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
@@ -39992,6 +40117,38 @@ var render = function() {
                         }
                       },
                       [_vm._v("Procesar Pedido")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 3
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarProceso()
+                          }
+                        }
+                      },
+                      [_vm._v("Notificar Pedido Listo")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 4
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarProceso()
+                          }
+                        }
+                      },
+                      [_vm._v("Notificar Pedido Entregado")]
                     )
                   : _vm._e()
               ])
