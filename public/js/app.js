@@ -2433,8 +2433,7 @@ __webpack_require__.r(__webpack_exports__);
             swalWithBootstrapButtons.fire('En Proceso', 'El pedido ha sido procesado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
-          }); // productosJSON = JSON.parse(this.productos)
-          //Mandando informacion de pedido a dulcería/
+          }); //Mandando informacion de pedido a dulcería/cafetería (Juan/Jorge)
 
           var url = 'https://cafeteria-cine.herokuapp.com/ventas';
           axios.post(url, {
@@ -2444,12 +2443,14 @@ __webpack_require__.r(__webpack_exports__);
             'codigo_cliente': _this.codigo_cliente,
             'numero_venta': _this.numero_venta,
             'puntos': _this.puntos,
-            'estado': 'En proceso'
+            'estado': 'En proceso',
+            'departamento': 4
           }).then(function (response) {
             console.log(response);
           })["catch"](function (error) {
             console.log(error);
-          });
+          }); //Servicio en linea (Luismi)
+
           var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this.numero_venta;
           axios.put(url, {
             'estado': 'En proceso'
@@ -2463,10 +2464,87 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     notificarListo: function notificarListo() {
-      console.log("Estoy en notificar pedido");
+      var _this2 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Estás seguro que quieres procesar el pedido?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          //Servicio en linea (Luismi)
+          var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this2.numero_venta;
+          axios.put(url, {
+            'estado': 'Listo'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
     },
     actualizarEntregado: function actualizarEntregado() {
-      console.log("Estoy en actualizar a entregado");
+      var _this3 = this;
+
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Estás seguro que quieres procesar el pedido?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          //actualizar estado de pedido de 'Listo' a 'Entregado'
+          var me = _this3;
+          var url = 'https://serviciosalas.herokuapp.com/api/pedido/' + _this3.numero_venta;
+          axios.put(url, {
+            'estado': 'Entregado'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          }); //Mandando informacion de pedido a dulcería/cafetería (Juan/Jorge)
+
+          var urlCafeteria = 'https://cafeteria-cine.herokuapp.com/ventas/' + _this3.numero_venta;
+          axios.patch(urlCafeteria, {
+            'estado': 'Entregado'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          }); //Servicio en linea (Luismi)
+
+          var urlServicio = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this3.numero_venta;
+          axios.put(urlServicio, {
+            'estado': 'Entregado'
+          }).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if ( // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel) {}
+      });
     },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -39381,7 +39459,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_c("i", { staticClass: "icon-share-alt" })]
+                              [_c("i", { staticClass: "fa fa-share" })]
                             ),
                             _vm._v(
                               "  \n\n                                      "
@@ -39406,7 +39484,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_c("i", { staticClass: "icon-share-alt" })]
+                              [_c("i", { staticClass: "fa fa-check-square-o" })]
                             ),
                             _vm._v("  \n                                  ")
                           ])
@@ -40128,7 +40206,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.actualizarProceso()
+                            return _vm.notificarListo()
                           }
                         }
                       },
@@ -40144,7 +40222,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.actualizarProceso()
+                            return _vm.actualizarEntregado()
                           }
                         }
                       },

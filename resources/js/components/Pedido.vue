@@ -61,12 +61,12 @@
                                     </div>
                                     <div v-else-if="pedido.estado == 'Listo'">
                                         <button type="button" @click="abrirModal('pedido','notificar_Listo',pedido)" class="btn btn-info btn-sm" title="Notificar a servicio en línea pedido listo">
-                                        <i class="icon-share-alt"></i>
+                                        <i class="fa fa-share"></i>
                                         </button> &nbsp;
 
                                         <!-- :disabled="pedido_listo == 0" -->
                                         <button type="button"  @click="abrirModal('pedido','actualizar_Entregado',pedido)" class="btn btn-success btn-sm" title="Notificar que el pedido ha sido entregado">
-                                        <i class="icon-share-alt"></i>
+                                        <i class="fa fa-check-square-o"></i>
                                         </button> &nbsp;
                                     </div>
                                     
@@ -233,8 +233,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" @click="cerrarModal()">Cerrar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-warning" @click="actualizarProceso()">Procesar Pedido</button>
-                        <button type="button" v-if="tipoAccion==3" class="btn btn-info" @click="actualizarProceso()">Notificar Pedido Listo</button>
-                        <button type="button" v-if="tipoAccion==4" class="btn btn-success" @click="actualizarProceso()">Notificar Pedido Entregado</button>
+                        <button type="button" v-if="tipoAccion==3" class="btn btn-info" @click="notificarListo()">Notificar Pedido Listo</button>
+                        <button type="button" v-if="tipoAccion==4" class="btn btn-success" @click="actualizarEntregado()">Notificar Pedido Entregado</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -387,8 +387,8 @@
                             console.log(error);
                         });
                         
-                        // productosJSON = JSON.parse(this.productos)
-                        //Mandando informacion de pedido a dulcería/
+                        
+                        //Mandando informacion de pedido a dulcería/cafetería (Juan/Jorge)
                         var url = 'https://cafeteria-cine.herokuapp.com/ventas';
                         axios.post(url,{
                             'productos' :  JSON.parse(this.productos),
@@ -397,16 +397,16 @@
                             'codigo_cliente' : this.codigo_cliente,
                             'numero_venta' : this.numero_venta,
                             'puntos' : this.puntos,
-                            'estado' : 'En proceso'
+                            'estado' : 'En proceso',
+                            'departamento' : 4
                         }).then(function(response) {
                             console.log(response);
                         }).catch(function(error){
                             console.log(error);
                         });
-
+                        //Servicio en linea (Luismi)
                         var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + this.numero_venta;
-                        axios.put(url,{
-                            
+                        axios.put(url,{           
                             'estado' : 'En proceso'
                         }).then(function(response) {
                             console.log(response);
@@ -426,12 +426,101 @@
 
             notificarListo()
             {
-                console.log("Estoy en notificar pedido");
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                        buttonsStyling: false,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Estás seguro que quieres procesar el pedido?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Aceptar',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        //Servicio en linea (Luismi)
+                        var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + this.numero_venta;
+                        axios.put(url,{           
+                            'estado' : 'Listo'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+                        
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+
+                    }
+                    })
             },
 
             actualizarEntregado()
             {
-                console.log("Estoy en actualizar a entregado");
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                        buttonsStyling: false,
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Estás seguro que quieres procesar el pedido?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Aceptar',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        //actualizar estado de pedido de 'Listo' a 'Entregado'
+                        let me = this;
+                        var url = 'https://serviciosalas.herokuapp.com/api/pedido/' + this.numero_venta;
+                        axios.put(url,{           
+                            'estado' : 'Entregado'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+
+                                
+                        //Mandando informacion de pedido a dulcería/cafetería (Juan/Jorge)
+                        var urlCafeteria = 'https://cafeteria-cine.herokuapp.com/ventas/'+ this.numero_venta;
+                        axios.patch(urlCafeteria,{           
+                            'estado' : 'Entregado'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+                        //Servicio en linea (Luismi)
+                        var urlServicio = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + this.numero_venta;
+                        axios.put(urlServicio,{           
+                            'estado' : 'Entregado'
+                        }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error){
+                            console.log(error);
+                        });
+                        
+
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+
+                    }
+                    })
             },
 
 
