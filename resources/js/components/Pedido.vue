@@ -445,7 +445,7 @@
                                 //console.log(data);
 
                                 this.modal = 1;
-                                this.tituloModal = 'Procesar Pedido';
+                                this.tituloModal = 'Procesar Pedido(En proceso)';
                                 this.tipoAccion = 2;
 
                                 this.pedido_id = data['id'];
