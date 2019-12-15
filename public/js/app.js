@@ -2424,15 +2424,13 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           //actualizar estado de pedido de 'Recibido' a 'En Proceso'
-          var _me = _this;
+          var me = _this;
           axios.put('/pedido/proceso', {
             'id': _this.pedido_id
           }).then(function (response) {
-            _me.cerrarModal();
-
-            _me.listarPedido(1, '', 'nombre_cliente');
-
-            swalWithBootstrapButtons.fire('En Proceso', 'El pedido ha sido procesado con éxito.', 'success');
+            me.cerrarModal();
+            me.listarPedido(1, '', 'nombre_cliente');
+            swalWithBootstrapButtons.fire('Pedido En Proceso', 'El pedido ha sido procesado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           }); //Mandando informacion de pedido a dulcería/cafetería (Juan/Jorge)
@@ -2485,6 +2483,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           //Servicio en linea (Luismi)
+          var me = _this2;
           var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + _this2.numero_venta;
           axios.put(url, {
             'estado': 'Listo'
@@ -2520,15 +2519,13 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           //actualizar estado de pedido de 'Listo' a 'Entregado'
-          var _me2 = _this3;
+          var me = _this3;
           var url = 'https://serviciosalas.herokuapp.com/api/pedido/' + _this3.numero_venta;
           axios.put(url, {
             'estado': 'Entregado'
           }).then(function (response) {
-            _me2.cerrarModal();
-
-            _me2.listarPedido(1, '', 'nombre_cliente');
-
+            me.cerrarModal();
+            me.listarPedido(1, '', 'nombre_cliente');
             swalWithBootstrapButtons.fire('Entregado', 'El pedido ha sido notificado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);

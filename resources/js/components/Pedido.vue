@@ -379,7 +379,7 @@
                             me.cerrarModal();
                             me.listarPedido(1, '', 'nombre_cliente');
                             swalWithBootstrapButtons.fire(
-                                'En Proceso',
+                                'Pedido En Proceso',
                                 'El pedido ha sido procesado con éxito.',
                                 'success'
                         )
@@ -444,6 +444,7 @@
                     }).then((result) => {
                     if (result.value) {
                         //Servicio en linea (Luismi)
+                        let me = this;
                         var url = 'https://cinemappi.herokuapp.com/API/venta/actualizar/' + this.numero_venta;
                         axios.put(url,{           
                             'estado' : 'Listo'
