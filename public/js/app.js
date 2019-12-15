@@ -2424,12 +2424,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           //actualizar estado de pedido de 'Recibido' a 'En Proceso'
-          var me = _this;
+          var _me = _this;
           axios.put('/pedido/proceso', {
             'id': _this.pedido_id
           }).then(function (response) {
-            me.cerrarModal();
-            me.listarPedido(1, '', 'nombre_cliente');
+            _me.cerrarModal();
+
+            _me.listarPedido(1, '', 'nombre_cliente');
+
             swalWithBootstrapButtons.fire('En Proceso', 'El pedido ha sido procesado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -2488,6 +2490,8 @@ __webpack_require__.r(__webpack_exports__);
             'estado': 'Listo'
           }).then(function (response) {
             console.log(response);
+            me.cerrarModal();
+            me.listarPedido(1, '', 'nombre_cliente');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2515,7 +2519,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           //actualizar estado de pedido de 'Listo' a 'Entregado'
-          var me = _this3;
+          var _me2 = _this3;
           var url = 'https://serviciosalas.herokuapp.com/api/pedido/' + _this3.numero_venta;
           axios.put(url, {
             'estado': 'Entregado'
@@ -2539,6 +2543,10 @@ __webpack_require__.r(__webpack_exports__);
             'estado': 'Entregado'
           }).then(function (response) {
             console.log(response);
+
+            _me2.cerrarModal();
+
+            _me2.listarPedido(1, '', 'nombre_cliente');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2557,7 +2565,7 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   //console.log(data);
                   this.modal = 1;
-                  this.tituloModal = 'Procesar Pedido(En proceso)';
+                  this.tituloModal = 'Enviar Pedido Nuevo';
                   this.tipoAccion = 2;
                   this.pedido_id = data['id'];
                   this.productos = data['productos'];

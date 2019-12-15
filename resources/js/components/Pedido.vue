@@ -449,6 +449,8 @@
                             'estado' : 'Listo'
                         }).then(function(response) {
                             console.log(response);
+                            me.cerrarModal();
+                            me.listarPedido(1, '', 'nombre_cliente');
                         }).catch(function(error){
                             console.log(error);
                         });
@@ -509,6 +511,8 @@
                             'estado' : 'Entregado'
                         }).then(function(response) {
                             console.log(response);
+                            me.cerrarModal();
+                            me.listarPedido(1, '', 'nombre_cliente');
                         }).catch(function(error){
                             console.log(error);
                         });
@@ -534,7 +538,7 @@
                                 //console.log(data);
 
                                 this.modal = 1;
-                                this.tituloModal = 'Procesar Pedido(En proceso)';
+                                this.tituloModal = 'Enviar Pedido Nuevo';
                                 this.tipoAccion = 2;
 
                                 this.pedido_id = data['id'];
