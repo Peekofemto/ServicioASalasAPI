@@ -98,7 +98,7 @@
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'Entregado'" >
-                                    <span class="badge badge-pill badge-success">Recibido</span>
+                                    <span class="badge badge-pill badge-success">Entregado</span>
                                     </div>
 
                                     <div v-else-if="pedido.estado === 'Cancelado'" >

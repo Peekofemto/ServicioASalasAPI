@@ -39527,7 +39527,7 @@ var render = function() {
                             _c(
                               "span",
                               { staticClass: "badge badge-pill badge-success" },
-                              [_vm._v("Recibido")]
+                              [_vm._v("Entregado")]
                             )
                           ])
                         : pedido.estado === "Cancelado"
