@@ -2492,6 +2492,7 @@ __webpack_require__.r(__webpack_exports__);
             console.log(response);
             me.cerrarModal();
             me.listarPedido(1, '', 'nombre_cliente');
+            swalWithBootstrapButtons.fire('Pedido Listo', 'El pedido ha sido notificado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2524,7 +2525,11 @@ __webpack_require__.r(__webpack_exports__);
           axios.put(url, {
             'estado': 'Entregado'
           }).then(function (response) {
-            console.log(response);
+            _me2.cerrarModal();
+
+            _me2.listarPedido(1, '', 'nombre_cliente');
+
+            swalWithBootstrapButtons.fire('Entregado', 'El pedido ha sido notificado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
           }); //Mandando informacion de pedido a dulcería/cafetería (Juan/Jorge)
@@ -2543,10 +2548,6 @@ __webpack_require__.r(__webpack_exports__);
             'estado': 'Entregado'
           }).then(function (response) {
             console.log(response);
-
-            _me2.cerrarModal();
-
-            _me2.listarPedido(1, '', 'nombre_cliente');
           })["catch"](function (error) {
             console.log(error);
           });

@@ -451,6 +451,11 @@
                             console.log(response);
                             me.cerrarModal();
                             me.listarPedido(1, '', 'nombre_cliente');
+                            swalWithBootstrapButtons.fire(
+                                'Pedido Listo',
+                                'El pedido ha sido notificado con éxito.',
+                                'success'
+                        )
                         }).catch(function(error){
                             console.log(error);
                         });
@@ -490,7 +495,13 @@
                         axios.put(url,{           
                             'estado' : 'Entregado'
                         }).then(function(response) {
-                            console.log(response);
+                            me.cerrarModal();
+                            me.listarPedido(1, '', 'nombre_cliente');
+                            swalWithBootstrapButtons.fire(
+                                'Entregado',
+                                'El pedido ha sido notificado con éxito.',
+                                'success'
+                        )
                         }).catch(function(error){
                             console.log(error);
                         });
@@ -511,8 +522,7 @@
                             'estado' : 'Entregado'
                         }).then(function(response) {
                             console.log(response);
-                            me.cerrarModal();
-                            me.listarPedido(1, '', 'nombre_cliente');
+                            
                         }).catch(function(error){
                             console.log(error);
                         });
