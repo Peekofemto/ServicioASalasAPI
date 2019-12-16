@@ -29,6 +29,7 @@ class PedidoResource extends JsonResource
             'estado' => $this->estado,
             'codigo_cliente' => $this->codigo_cliente,
             'puntos' => $this->puntos,
+            'numero de venta' => $this->num_venta,
             'total' => $this->total,
         ];
         // return parent::toArray($request);
