@@ -565,6 +565,7 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
+                                this.num_venta = data['num_venta'];
                                 this.numero_venta = data['numero_venta'];
                                 
                                 // productosJSON = JSON.parse(this.productos)
@@ -590,6 +591,7 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
+                                this.num_venta = data['num_venta'];
                                 this.numero_venta = data['numero_venta'];
                                 
                                 // productosJSON = JSON.parse(this.productos)
@@ -614,6 +616,7 @@
                                 this.nombre_cliente = data['nombre_cliente'];
                                 this.observaciones = data['observaciones'];
                                 this.sala = data['sala'];
+                                this.num_venta = data['num_venta'];
                                 this.numero_venta = data['numero_venta'];
                                 
                                 // productosJSON = JSON.parse(this.productos)
