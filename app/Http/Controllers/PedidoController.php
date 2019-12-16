@@ -28,7 +28,7 @@ class PedidoController extends Controller
 
         if ($buscar=='') {
             //Creando un array de tipo Alumno(model)
-            $pedidos = Pedido::orderBy('id', 'desc')->paginate(20);
+            $pedidos = Pedido::orderBy('fecha', 'asc')->orderBy('hora', 'asc')->paginate(20);
         }
         else {
             $pedidos = Pedido::where($criterio, 'like', '%' . $buscar . '%' )->orderBy('id', 'desc')->paginate(5);
