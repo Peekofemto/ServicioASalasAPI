@@ -224,7 +224,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Número de venta</label>
                                 <div class="col-md-9">
-                                    <input disabled type="text" v-model="numero_venta" class="form-control" placeholder="Número de venta">   
+                                    <input disabled type="text" v-model="num_venta" class="form-control" placeholder="Número de venta">   
                                 </div>
                             </div>
 
@@ -264,6 +264,7 @@
                 codigo_cliente : '',
                 puntos : 0,
                 numero_venta : '',
+                num_venta : '',
                 arrayPedido : [],
                 modal : 0,
                 tituloModal : '',

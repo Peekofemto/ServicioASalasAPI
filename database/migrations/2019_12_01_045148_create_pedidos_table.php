@@ -32,6 +32,8 @@ class CreatePedidosTable extends Migration
             $table->integer('puntos')->unsigned();
             $table->double('total', 8, 2);
 
+
+            $table->string('num_venta');
             $table->string('numero_venta');
 
             // $table->unsignedBigInteger('pedido_id');
