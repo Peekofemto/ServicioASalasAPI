@@ -2442,7 +2442,7 @@ __webpack_require__.r(__webpack_exports__);
             'costo_final': _this.total,
             'fecha': _this.fecha,
             'codigo_cliente': _this.codigo_cliente,
-            'numero_venta': _this.numero_venta,
+            'numero_venta': _this.num_venta,
             'puntos': _this.puntos,
             'estado': 'En proceso',
             'departamento': 4

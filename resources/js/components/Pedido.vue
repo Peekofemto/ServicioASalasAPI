@@ -396,7 +396,7 @@
                             'costo_final' : this.total,
                             'fecha' : this.fecha,
                             'codigo_cliente' : this.codigo_cliente,
-                            'numero_venta' : this.numero_venta,
+                            'numero_venta' : this.num_venta,
                             'puntos' : this.puntos,
                             'estado' : 'En proceso',
                             'departamento' : 4
