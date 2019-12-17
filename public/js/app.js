@@ -2664,6 +2664,8 @@ __webpack_require__.r(__webpack_exports__);
       this.observaciones = '';
       this.sala = '';
       this.numero_venta = '';
+      this.num_venta = '';
+      this.transaccion = '';
     }
   },
   mounted: function mounted() {

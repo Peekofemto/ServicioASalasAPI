@@ -661,6 +661,8 @@
                 this.observaciones = '';
                 this.sala = '';
                 this.numero_venta = '';
+                this.num_venta = '';
+                this.transaccion = '';
             },
 
     },
