@@ -2327,6 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
       puntos: 0,
       numero_venta: '',
       num_venta: '',
+      transaccion: '',
       arrayPedido: [],
       modal: 0,
       tituloModal: '',
@@ -2439,6 +2440,7 @@ __webpack_require__.r(__webpack_exports__);
           var url = 'https://cafeteria-cine.herokuapp.com/ventas';
           axios.post(url, {
             'productos': JSON.parse(_this.productos),
+            'transaccion': JSON.parse(_this.transaccion),
             'costo_final': _this.total,
             'fecha': _this.fecha,
             'codigo_cliente': _this.codigo_cliente,
@@ -2580,7 +2582,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.observaciones = data['observaciones'];
                   this.sala = data['sala'];
                   this.num_venta = data['num_venta'];
-                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+                  this.numero_venta = data['numero_venta'];
+                  this.transaccion = data['transaccion']; // productosJSON = JSON.parse(this.productos)
 
                   break;
                 }
@@ -2604,7 +2607,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.observaciones = data['observaciones'];
                   this.sala = data['sala'];
                   this.num_venta = data['num_venta'];
-                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+                  this.numero_venta = data['numero_venta'];
+                  this.transaccion = data['transaccion']; // productosJSON = JSON.parse(this.productos)
 
                   break;
                 }
@@ -2627,7 +2631,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.observaciones = data['observaciones'];
                   this.sala = data['sala'];
                   this.num_venta = data['num_venta'];
-                  this.numero_venta = data['numero_venta']; // productosJSON = JSON.parse(this.productos)
+                  this.numero_venta = data['numero_venta'];
+                  this.transaccion = data['transaccion']; // productosJSON = JSON.parse(this.productos)
 
                   break;
                 }
@@ -38729,7 +38734,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("i", { staticClass: "fa fa-align-justify" }),
-            _vm._v(" Categorías\r\n                "),
+            _vm._v(" Categorías\n                "),
             _c(
               "button",
               {
@@ -38742,7 +38747,7 @@ var staticRenderFns = [
               },
               [
                 _c("i", { staticClass: "icon-plus" }),
-                _vm._v(" Nuevo\r\n                ")
+                _vm._v(" Nuevo\n                ")
               ]
             )
           ]),
@@ -38824,7 +38829,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                                "),
+                      _vm._v("  \n                                "),
                       _c(
                         "button",
                         {
@@ -38864,7 +38869,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                                "),
+                      _vm._v("  \n                                "),
                       _c(
                         "button",
                         {
@@ -38904,7 +38909,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                                "),
+                      _vm._v("  \n                                "),
                       _c(
                         "button",
                         {
@@ -38944,7 +38949,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                                "),
+                      _vm._v("  \n                                "),
                       _c(
                         "button",
                         {
@@ -38984,7 +38989,7 @@ var staticRenderFns = [
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v(" \r\n                                "),
+                      _vm._v(" \n                                "),
                       _c(
                         "button",
                         {
@@ -52681,7 +52686,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\set_r\serviciosalas\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ServicioSalas\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

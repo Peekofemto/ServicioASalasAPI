@@ -265,6 +265,7 @@
                 puntos : 0,
                 numero_venta : '',
                 num_venta : '',
+                transaccion : '',
                 arrayPedido : [],
                 modal : 0,
                 tituloModal : '',
@@ -393,6 +394,7 @@
                         var url = 'https://cafeteria-cine.herokuapp.com/ventas';
                         axios.post(url,{
                             'productos' :  JSON.parse(this.productos),
+                            'transaccion' : JSON.parse(this.transaccion),
                             'costo_final' : this.total,
                             'fecha' : this.fecha,
                             'codigo_cliente' : this.codigo_cliente,
@@ -568,6 +570,7 @@
                                 this.sala = data['sala'];
                                 this.num_venta = data['num_venta'];
                                 this.numero_venta = data['numero_venta'];
+                                this.transaccion = data['transaccion'];
                                 
                                 // productosJSON = JSON.parse(this.productos)
                                 
@@ -594,6 +597,7 @@
                                 this.sala = data['sala'];
                                 this.num_venta = data['num_venta'];
                                 this.numero_venta = data['numero_venta'];
+                                this.transaccion = data['transaccion'];
                                 
                                 // productosJSON = JSON.parse(this.productos)
                                 
@@ -619,6 +623,7 @@
                                 this.sala = data['sala'];
                                 this.num_venta = data['num_venta'];
                                 this.numero_venta = data['numero_venta'];
+                                this.transaccion = data['transaccion'];
                                 
                                 // productosJSON = JSON.parse(this.productos)
                                 

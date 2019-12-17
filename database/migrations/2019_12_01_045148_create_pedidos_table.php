@@ -36,6 +36,8 @@ class CreatePedidosTable extends Migration
             $table->string('num_venta');
             $table->string('numero_venta');
 
+            $table->string('transaccion');
+
             // $table->unsignedBigInteger('pedido_id');
             // $table->string('nombre');
             // $table->integer('cantidad')->unsigned();

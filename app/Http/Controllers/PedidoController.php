@@ -80,10 +80,16 @@ class PedidoController extends Controller
         $pedido->num_venta = $request->num_venta;
 
         $productosX = $request->productos;
+        $transaccionX = $request->transaccion;
 
         $productosString = json_encode($productosX);
-
+        $transaccionString = json_encode($transaccionX);
+        
         $pedido->productos = $productosString;
+        $pedido->transaccion = $transaccionString;
+
+        
+
         
         
         // $data = $request->only('productos');
